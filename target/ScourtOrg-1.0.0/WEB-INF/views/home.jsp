@@ -40,34 +40,8 @@
 				</button>
 			</div>
 		</div>
-		<button type="button" class="btn btn-primary pull-right mb-2" date-toggle="modal" data-target="#modal-add">추가</button>
-		
-
-<!-- Modal -->
-<div class="modal fade" id="modal-add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-		
-		
-		
-		
+		<button type="button" class="btn btn-primary pull-right mb-2" date-toggle="modal" data-target="#exampleModal">추가</button>
+			
 		<table class="table table-hover">
 			<thead class="thead-light">
 				<tr>
@@ -104,9 +78,63 @@
 					<td>동관 247호</td>
 					<td>02-1234-1234</td>
 				</tr>
+				<tr>
+					<th scope="row">4</th>
+					<td>전산서기보</td>
+					<td>김강은</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
+				<tr>
+					<th scope="row">5</th>
+					<td>전산서기보</td>
+					<td>이채민</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
+				<tr>
+					<th scope="row">6</th>
+					<td>전산사무관</td>
+					<td>오창완</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
+				<tr>
+					<th scope="row">7</th>
+					<td>전산사무관</td>
+					<td>이만수</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
+				<tr>
+					<th scope="row">8</th>
+					<td>전산주사</td>
+					<td>김병모</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
+				<tr>
+					<th scope="row">9</th>
+					<td>전산주사</td>
+					<td>정인성</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
+				<tr>
+					<th scope="row">10</th>
+					<td>전산주사</td>
+					<td>장연정</td>
+					<td>사법등기심의관실</td>
+					<td>동관 247호</td>
+					<td>02-1234-1234</td>
+				</tr>
 		</table>
-		
-		
 	</div>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination pagination-sm justify-content-center">
@@ -127,5 +155,9 @@
 	    	</li>
 	    </ul>
 	</nav>
+	
+	
+		
+	
 </body>
 </html>
