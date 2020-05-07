@@ -40,7 +40,9 @@
 				</button>
 			</div>
 		</div>
-		<button type="button" class="btn btn-primary pull-right mb-2" date-toggle="modal" data-target="#exampleModal">추가</button>
+       		<button type="button" class="btn btn-primary pull-right mb-2" date-toggle="modal" data-target="#exampleModal" 
+		        onclick="window.open('add.jsp','직원 추가','width=430,height=500,location=no,status=no,scrollbars=yes');">추가</button>
+		
 			
 		<table class="table table-hover">
 			<thead class="thead-light">
