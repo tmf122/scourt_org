@@ -237,9 +237,9 @@
 	}
 	document.getElementById("modal_add_btn").onclick = function() {		
 		if (confirm("추가하시겠습니까?") == true){
-			<!-- 추가 이벤트 실행-->
+			//추가 이벤트 실행
 			
-			<!-- 추가 이벤트 이후 레이아웃 닫기-->
+			//추가 이벤트 이후 레이아웃 닫기
 			close_layout();
 		}		
 	}
