@@ -19,17 +19,12 @@
 	<div class="container">	
 		<div class="input-group p-4">
 			<div class="input-group-prepend">
-				<button class="btn btn-outline-secondary dropdown-toggle"
-					type="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">Dropdown</button>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">이름</a> 
-					<a class="dropdown-item" href="#">직급</a> 
-					<a class="dropdown-item" href="#">소속</a>
-					<a class="dropdown-item" href="#">전화번호</a>
-					<div role="separator" class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div>
+				<select class="btn btn-outline-secondary dropdown-toggle">
+					<option value="0" selected>이름</option> 
+					<option value="1">직급</option> 
+					<option value="2">소속</option>
+					<option value="3">전화번호</option>			
+				</select>
 			</div>
 	
 			<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
