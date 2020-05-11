@@ -169,7 +169,7 @@
        <table class="table table-bordered">
 			<tr>
 				<td align="center" style="vertical-align:middle">성명</td>
-				<td> <input type="text" class="form-control" name="name" maxlength="10"> </td>
+				<td> <input type="text" class="form-control" name="name" maxlength="10" id=add_input_name> </td>
 			</tr>
 			
 			<tr>
@@ -228,6 +228,7 @@
 <script>
 	document.getElementById("modal_opne_btn").onclick = function() {
 		document.getElementById("modal").style.display="block";
+		document.getElementById("add_input_name").focus();
 	}
 	document.getElementById("modal_close_btn").onclick = function() {
 		close_layout();
