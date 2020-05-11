@@ -2,7 +2,14 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Home</title>
+	<!-- bootstrap -->
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link
+		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -369,19 +376,6 @@
 	//추가화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_apply_btn").onclick = function() {		
 		if (confirm("추가하시겠습니까?") == true){
-			//추가 이벤트 실행
-
-			//추가 이벤트 이후 레이아웃 닫기
-			close_layout();
-		}		
-	}
-	//수정화면에서 취소 버튼 클릭
-	document.getElementById("modal_modify_close_btn").onclick = function() {
-		close_layout();
-	}
-	//수정화면에서 수정 버튼 클릭
-	document.getElementById("modal_modify_apply_btn").onclick = function() {		
-		if (confirm("수정하시겠습니까?") == true){
 			//추가 이벤트 실행
 
 			//추가 이벤트 이후 레이아웃 닫기
