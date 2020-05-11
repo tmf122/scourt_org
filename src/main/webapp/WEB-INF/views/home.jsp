@@ -170,7 +170,7 @@
 	
 <div id="modal_add" class="container" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
     <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
-       <div class="modal_add_header"><button type=button" class="close" onclick="close_layout()">×</button></div>
+       <div class="modal_add_header"><button type=button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
        <table class="table table-bordered">
 			<tr>
@@ -220,7 +220,7 @@
 				<td> <input type="text" class="form-control" name="phone_number" maxlength="20"> </td>
 			</tr>
 		</table>
-		<button type="button" class = "btn btn-default pull-right" id="modal_add_close_btn" onclick="close_layout()" style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
+		<button type="button" class = "btn btn-default pull-right" id="modal_add_close_btn" onclick="close_add_layout()" style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_apply_btn" style="display:inline-block; width:100px;">추가</button>        
 	        
     </div>
@@ -236,8 +236,8 @@
 <!-- -----------직원 수정 ---------------------- -->
 <!-- ---------------------------------------- -->	
 <div id="modal_modify" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
-    <div class="modal_modify_content" style="position:fixed; width:30%; min-width:400px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
-       <div class="modal_modify_header"><button type=button" class="close" onclick="close_layout()">×</button></div>
+    <div class="modal_modify_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+       <div class="modal_modify_header"><button type=button" class="close" onclick="close_modify_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 수정</h3><br>
        <table class="table table-bordered">
 			<tr>
@@ -287,7 +287,7 @@
 				<td> <input type="text" class="form-control" name="phone_number" maxlength="20" id=modify_input_phonenum></td>
 			</tr>
 		</table>
-		<button type="button" class = "btn btn-default pull-right" id="modal_modify_close_btn" onclick="close_layout()"style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
+		<button type="button" class = "btn btn-default pull-right" id="modal_modify_close_btn" onclick="close_modify_layout()"style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_modify_apply_btn" style="display:inline-block; width:100px;">수정</button>        
         
     </div>
@@ -302,9 +302,9 @@
 <!-- -----------직원 보기-------------------------- -->
 <!-- ------------------------------------------- -->	
 <div id="modal_view" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
-    <div class="modal_view_content" style="position:fixed; width:30%; min-width:400px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
-       <div class="modal_view_header"><button type=button" class="close" onclick="close_layout()">×</button></div>
-       <h3 align="center">사법등기국 조직도::직원 상세보기</h3><br>
+    <div class="modal_view_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+       <div class="modal_view_header"><button type=button" class="close" onclick="close_view_layout()">×</button></div>
+       <h3 align="center">사법등기국 조직도::직원 보기</h3><br>
        <table class="table table-bordered" id=view_table>
 			<tr>
 				<td align="center" style="vertical-align:middle">성명</td>
@@ -346,8 +346,8 @@
 				<td align="center"> </td>
 			</tr>
 		</table>
-		<button type="button" class = "btn btn-default pull-right" id="modal_modify_close_btn" style="display:inline-block; margin-left:10px; width:100px;">삭제</button> 
-		<button type="button" class = "btn btn-default pull-right" id="modal_modify_apply_btn" style="display:inline-block; width:100px;">수정</button>        
+		<button type="button" class = "btn btn-default pull-right" id="modal_view_delete_btn" style="display:inline-block; margin-left:10px; width:100px;">삭제</button> 
+		<button type="button" class = "btn btn-default pull-right" id="modal_view_modify_btn" style="display:inline-block; width:100px;">수정</button>        
         
     </div>
     <div class="modal_add_layer" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:-1;"></div>
@@ -378,18 +378,34 @@
 			//추가 이벤트 실행
 
 			//추가 이벤트 이후 레이아웃 닫기
-			close_layout();
+			close_add_layout();
 		}		
 	}
 	
 	//수정화면에서 수정 버튼 클릭
 	document.getElementById("modal_modify_apply_btn").onclick = function() {		
 		if (confirm("수정하시겠습니까?") == true){
-			//추가 이벤트 실행
+			//수정 이벤트 실행
 
-			//추가 이벤트 이후 레이아웃 닫기
-			close_layout();
+			//수정 이벤트 이후 레이아웃 닫기
+			close_modify_layout();
 		}		
+	}
+	
+	document.getElementById("modal_view_delete_btn").onclick = function() {		
+		if (confirm("삭제하시겠습니까?") == true){
+			//삭제 이벤트 실행
+
+			//삭제 이벤트 이후 레이아웃 닫기
+			close_view_layout();
+		}		
+	}
+	
+	document.getElementById("modal_view_modify_btn").onclick = function() {		
+		close_view_layout();
+		document.getElementById("modal_modify").style.display="block";
+		input_modify();
+		document.getElementById("modify_input_name").focus();
 	}
 	
 	function input_modify(){
@@ -425,13 +441,21 @@
 		document.getElementById('modify_select').value='0';
 	}
 	
-	function close_layout(){
+	function close_add_layout(){
 		document.getElementById("modal_add").style.display="none";
-		document.getElementById("modal_modify").style.display="none";
-		document.getElementById("modal_view").style.display="none";
-		
 		clear_input();
 	}
+	
+	function close_modify_layout(){
+		document.getElementById("modal_modify").style.display="none";
+		clear_input();
+	}
+	
+	function close_view_layout(){
+		document.getElementById("modal_view").style.display="none";
+		clear_input();
+	}
+
 </script>
 			
 		
