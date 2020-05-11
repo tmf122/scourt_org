@@ -392,6 +392,7 @@
 		}		
 	}
 	
+	//상세보기에서 삭제버튼 클릭
 	document.getElementById("modal_view_delete_btn").onclick = function() {		
 		if (confirm("삭제하시겠습니까?") == true){
 			//삭제 이벤트 실행
@@ -401,24 +402,27 @@
 		}		
 	}
 	
+	//상세보기에서 수정버튼 클릭
 	document.getElementById("modal_view_modify_btn").onclick = function() {		
 		close_view_layout();
 		document.getElementById("modal_modify").style.display="block";
-		input_modify();
+		input_modify(view_table);
 		document.getElementById("modify_input_name").focus();
 	}
 	
-	function input_modify(){
-		document.getElementById("modify_input_name").value="조영래";
-		document.getElementById("modify_input_birthday").value="1992-10-19";
-		document.getElementById("modify_input_initday").value="2020-04-01";
-		document.getElementById("modify_input_rank").value="전산서기보";
-		document.getElementById("modify_input_location").value="대법원 동관 245호";
-		document.getElementById('modify_select').value='0';
-		document.getElementById("modify_input_officenum").value="02-3480-7664";
-		document.getElementById("modify_input_phonenum").value="010-2993-7291";
+	//수정 화면에 값 입력
+	function input_modify(view_table){
+		document.getElementById("modify_input_name").value=view_table.rows[0].cells[1].innerText;
+		document.getElementById("modify_input_birthday").value=view_table.rows[1].cells[1].innerText;
+		document.getElementById("modify_input_initday").value=view_table.rows[2].cells[1].innerText;
+		document.getElementById("modify_input_rank").value=view_table.rows[3].cells[1].innerText;
+		document.getElementById("modify_input_location").value=view_table.rows[4].cells[1].innerText;
+		document.getElementById('modify_select').value=view_table.rows[5].cells[1].innerText;
+		document.getElementById("modify_input_officenum").value=view_table.rows[6].cells[1].innerText;
+		document.getElementById("modify_input_phonenum").value=view_table.rows[7].cells[1].innerText;
 	}
 	
+	//상세보기에 값 입력
 	function input_view(){
 		table=document.getElementById("view_table");
 		
@@ -432,6 +436,7 @@
 		table.rows[7].cells[1].innerText="010-2993-7291";
 	}
 	
+	//입력된 내용 초기화
 	function clear_input(){
 		var el = document.getElementsByClassName('form-control');
 		for(var i=0; i<el.length; i++){
@@ -441,16 +446,19 @@
 		document.getElementById('modify_select').value='0';
 	}
 	
+	//직원 추가 화면 닫기
 	function close_add_layout(){
 		document.getElementById("modal_add").style.display="none";
 		clear_input();
 	}
 	
+	//직원 수정 화면 닫기
 	function close_modify_layout(){
 		document.getElementById("modal_modify").style.display="none";
 		clear_input();
 	}
 	
+	//직원 상세보기 화면 닫기
 	function close_view_layout(){
 		document.getElementById("modal_view").style.display="none";
 		clear_input();
