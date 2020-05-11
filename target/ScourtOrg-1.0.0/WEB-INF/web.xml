@@ -29,11 +29,5 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	
-	<servlet-mapping>
-		<servlet-name>add</servlet-name>
-		<url-pattern>/views/add.jsp</url-pattern>
-		<url-pattern>*.do</url-pattern>
-	</servlet-mapping>
 
 </web-app>

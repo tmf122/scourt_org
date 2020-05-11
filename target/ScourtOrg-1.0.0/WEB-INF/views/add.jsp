@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table class="table table-bordered table-hover id="addtable">
+	<table class="table table-bordered id="addtable">
 		<tr>
 			<td>성명</td>
 			<td> <input type="text" name="name" maxlength="10"> </td>
@@ -21,6 +21,11 @@
 		<tr>
 			<td>현부서 임용일</td>
 			<td> <input type="date" name="initday"> </td>
+		</tr>
+		
+		<tr>
+			<td>직위(직급)</td>
+			<td> <input type="text" name="rank"> </td>
 		</tr>
 		
 		<tr>
