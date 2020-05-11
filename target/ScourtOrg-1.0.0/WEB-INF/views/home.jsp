@@ -2,7 +2,14 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Home</title>
+	<!-- bootstrap -->
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link
+		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -19,17 +26,12 @@
 	<div class="container">	
 		<div class="input-group p-4">
 			<div class="input-group-prepend">
-				<button class="btn btn-outline-secondary dropdown-toggle"
-					type="button" data-toggle="dropdown" aria-haspopup="true"
-					aria-expanded="false">Dropdown</button>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="#">이름</a> 
-					<a class="dropdown-item" href="#">직급</a> 
-					<a class="dropdown-item" href="#">소속</a>
-					<a class="dropdown-item" href="#">전화번호</a>
-					<div role="separator" class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
-				</div>
+				<select class="btn btn-outline-secondary dropdown-toggle">
+					<option value="0" selected>이름</option> 
+					<option value="1">직급</option> 
+					<option value="2">소속</option>
+					<option value="3">전화번호</option>			
+				</select>
 			</div>
 	
 			<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
@@ -41,94 +43,10 @@
 			</div>
 		</div>
 		
-<button class="btn btn-default" data-target="#layerpop1" data-toggle="modal">모달출력버튼</button><br/>
-<div class="modal fade" id="layerpop1" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <!-- header -->
-      <div class="modal-header">
-        <!-- 닫기(x) 버튼 -->
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <!-- header title -->
-        <h4 class="modal-title">Header</h4>
-      </div>
-      <!-- body -->
-      <div class="modal-body">
-            Body
-      </div>
-      <!-- Footer -->
-      <div class="modal-footer">
-        Footer
-        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-      </div>
-    </div>
-  </div>
+<div id="content">
+	<button class="btn btn-default pull-right"type="button" id="modal_opne_btn" style="width:80px">추가</button>
 </div>
 
-
-<button type="button" class="btn btn-default pull-right" data-target="#layerpop" data-toggle="modal">추가</button>  	
-<div class="modal fade" id="layerpop">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-title">사법등기국 조직도::직원 추가</div>
-			<div class="modal-body">
-				<table class="table table-bordered" id="addtable">
-					<tr>
-						<td>성명</td>
-						<td> <input type="text" name="name" maxlength="10"> </td>
-					</tr>
-					
-					<tr>
-						<td>생년월일</td>
-						<td> <input type="date" name="birthday"> </td>
-					</tr>
-					
-					<tr>
-						<td>현부서 임용일</td>
-						<td> <input type="date" name="initday"> </td>
-					</tr>
-					
-					<tr>
-						<td>직위(직급)</td>
-						<td> <input type="text" name="rank"> </td>
-					</tr>
-					
-					<tr>
-						<td>소속부서</td>
-						<td>
-							<select name="department">
-								<option value="0" selected>사법등기심의관실</option>
-								<option value="1">가족관계등록과</option>
-								<option value="2">부동산등기과</option>
-								<option value="3">재외국민가족관계과</option>
-							</select>
-						</td>
-					</tr>
-				
-					<tr>
-						<td>사무실 위치</td>
-						<td> <input type="text" name="location" maxlength="20"> </td>
-					</tr>
-				
-					<tr>
-						<td>사무실 전화번호</td>
-						<td> <input type="text" name="office_number" maxlength="20"> </td>
-					</tr>
-					
-					<tr>
-						<td>핸드폰 전화번호</td>
-						<td> <input type="text" name="phone_number" maxlength="20"> </td>
-					</tr>
-				</table> 
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary pull-right mb-2" date-toggle="modal" data-target="#exampleModal" onclick="alertAdd();"> 추가</button>
-				<button type="button" class="btn btn-default" date-dismiss="modal">취소</button>
-			</div>
-		</div>
-	</div>
-</div>
-			
 		<table class="table table-hover">
 			<thead class="thead-light">
 				<tr>
@@ -243,7 +161,103 @@
 	    </ul>
 	</nav>
 	
+<!-- ---------------------------------- -->
+<!-- -----------직원 추가----------------- -->
+<!-- ---------------------------------- -->	
 	
+<div id="modal" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
+    <div class="modal_content" style="position:fixed; width:30%; min-width:400px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+       <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
+       <table class="table table-bordered">
+			<tr>
+				<td align="center" style="vertical-align:middle">성명</td>
+				<td> <input type="text" class="form-control" name="name" maxlength="10" id=add_input_name> </td>
+			</tr>
+			
+			<tr>
+				<td align="center" style="vertical-align:middle">생년월일</td>
+				<td> <input type="date" class="form-control" name="birthday"> </td>
+			</tr>
+			
+			<tr>
+				<td align="center" style="vertical-align:middle">현부서 임용일</td>
+				<td> <input type="date" class="form-control" name="initday"> </td>
+			</tr>
+			
+			<tr>
+				<td align="center" style="vertical-align:middle">직위(직급)</td>
+				<td> <input type="text" class="form-control" name="rank"> </td>
+			</tr>
+			
+			<tr>
+				<td align="center" style="vertical-align:middle">소속부서</td>
+				<td>
+					<select name="department" class="form-control" id="add_select">
+						<option value="0" selected>사법등기심의관실</option>
+						<option value="1">가족관계등록과</option>
+						<option value="2">부동산등기과</option>
+						<option value="3">재외국민가족관계과</option>
+					</select>
+				</td>
+			</tr>
+		
+			<tr>
+				<td align="center" style="vertical-align:middle">사무실 위치</td>
+				<td> <input type="text" class="form-control" name="location" maxlength="20"> </td>
+			</tr>
+		
+			<tr>
+				<td align="center" style="vertical-align:middle">사무실 전화번호</td>
+				<td> <input type="text" class="form-control" name="office_number" maxlength="20"> </td>
+			</tr>
+			
+			<tr>
+				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
+				<td> <input type="text" class="form-control" name="phone_number" maxlength="20"> </td>
+			</tr>
+		</table>
+		<button type="button" class = "btn btn-default pull-right" id="modal_close_btn" style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
+		<button type="button" class = "btn btn-default pull-right" id="modal_add_btn" style="display:inline-block; width:100px;">추가</button>        
+        
+    </div>
+    <div class="modal_layer" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0, 0, 0, 0.5); z-index:-1;"></div>
+</div>
+
+<!-- ---------------------------------- -->
+<!-- -----------직원 추가 끝--------------- -->
+<!-- ---------------------------------- -->	
+
+<script>
+	document.getElementById("modal_opne_btn").onclick = function() {
+		document.getElementById("modal").style.display="block";
+		document.getElementById("add_input_name").focus();
+	}
+	document.getElementById("modal_close_btn").onclick = function() {
+		close_layout();
+	}
+	document.getElementById("modal_add_btn").onclick = function() {		
+		if (confirm("추가하시겠습니까?") == true){
+			<!-- 추가 이벤트 실행-->
+			
+			<!-- 추가 이벤트 이후 레이아웃 닫기-->
+			close_layout();
+		}		
+	}
+	
+	function clear_input(){
+		var el = document.getElementsByClassName('form-control');
+		for(var i=0; i<el.length; i++){
+			el[i].value = '';
+		}
+		document.getElementById('add_select').value='0';
+	}
+	
+	function close_layout(){
+		document.getElementById("modal").style.display="none";
+		clear_input();
+	}
+</script>
+			
 		
 	
 </body>

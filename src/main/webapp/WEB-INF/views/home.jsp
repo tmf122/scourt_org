@@ -2,7 +2,14 @@
 <%@ page session="false" pageEncoding="UTF-8"%>
 <html>
 <head>
-<title>Home</title>
+	<!-- bootstrap -->
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link
+		href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+		rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -230,9 +237,9 @@
 	}
 	document.getElementById("modal_add_btn").onclick = function() {		
 		if (confirm("추가하시겠습니까?") == true){
-			<!-- 추가 이벤트 실행-->
+			//추가 이벤트 실행
 			
-			<!-- 추가 이벤트 이후 레이아웃 닫기-->
+			//추가 이벤트 이후 레이아웃 닫기
 			close_layout();
 		}		
 	}
