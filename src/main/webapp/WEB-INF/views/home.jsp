@@ -459,7 +459,7 @@
 		table.rows[5].cells[1].innerText="사법등기심의관실";
 		table.rows[6].cells[1].innerText="02-3480-7664";
 		table.rows[7].cells[1].innerText="010-2993-7291";
-		document.getElementById("view_vo_id").value="120";
+		document.getElementById("view_vo_id").value="122";
 	}
 	
 	//검색목록 테이블 클릭 이벤트
