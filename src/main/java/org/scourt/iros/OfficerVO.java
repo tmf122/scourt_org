@@ -22,6 +22,10 @@ public class OfficerVO {
 	}
 	
 	public void setBirthday(String pbirth) {
+		if(pbirth=="") {
+			pbirth=null;
+		}
+		
 		this.birthday=pbirth;
 	}
 	
@@ -38,7 +42,11 @@ public class OfficerVO {
 	}
 	
 	public void setInitDay(String pinit) {
+		if(pinit=="") {
+			pinit=null;
+		}
 		this.initday=pinit;
+		
 	}
 	
 	public void setDepartment(String pdepartment) {

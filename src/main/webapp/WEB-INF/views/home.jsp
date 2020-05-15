@@ -52,7 +52,6 @@
 	<button class="btn btn-primary pull-right"type="button" id="modal_modify_open_btn" style=" margin-bottom:8px">수정</button>
 
 </div>
-
 		<table class="table table-hover" id=officer_list>
 			<thead class="thead-light">
 				<tr>
@@ -146,7 +145,7 @@
 					<td>02-1234-1234</td>
 				</tr>
 		</table>
-	</div>
+</div>
 	<nav aria-label="Page navigation example">
 		<ul class="pagination pagination-sm justify-content-center">
 	    	<li class="page-item">
@@ -175,54 +174,57 @@
     <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_add_header"><button type=button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
-       <table class="table table-bordered">
-			<tr>
-				<td align="center" style="vertical-align:middle">성명</td>
-				<td> <input type="text" class="form-control" name="name" maxlength="10" id=add_input_name> </td>
-			</tr>
+       <form action="/ScourtOrg/sorg" method="post" id="add_form">
+	       <table class="table table-bordered">
+				<tr>
+					<td align="center" style="vertical-align:middle">성명</td>
+					<td> <input type="text" class="form-control" name="name" maxlength="10" id=add_input_name> </td>
+				</tr>
+				
+				<tr>
+					<td align="center" style="vertical-align:middle">생년월일</td>
+					<td> <input type="date" class="form-control" name="birthday"> </td>
+				</tr>
+				
+				<tr>
+					<td align="center" style="vertical-align:middle">현부서 임용일</td>
+					<td> <input type="date" class="form-control" name="initday"> </td>
+				</tr>
+				
+				<tr>
+					<td align="center" style="vertical-align:middle">직위(직급)</td>
+					<td> <input type="text" class="form-control" name="rank"> </td>
+				</tr>
+				
+				<tr>
+					<td align="center" style="vertical-align:middle">소속부서</td>
+					<td>
+						<select name="department" class="form-control" id="add_select">
+							<option value="0" selected>사법등기심의관실</option>
+							<option value="1">가족관계등록과</option>
+							<option value="2">부동산등기과</option>
+							<option value="3">재외국민가족관계과</option>
+						</select>
+					</td>
+				</tr>
 			
-			<tr>
-				<td align="center" style="vertical-align:middle">생년월일</td>
-				<td> <input type="date" class="form-control" name="birthday"> </td>
-			</tr>
+				<tr>
+					<td align="center" style="vertical-align:middle">사무실 위치</td>
+					<td> <input type="text" class="form-control" name="location" maxlength="20"> </td>
+				</tr>
 			
-			<tr>
-				<td align="center" style="vertical-align:middle">현부서 임용일</td>
-				<td> <input type="date" class="form-control" name="initday"> </td>
-			</tr>
-			
-			<tr>
-				<td align="center" style="vertical-align:middle">직위(직급)</td>
-				<td> <input type="text" class="form-control" name="rank"> </td>
-			</tr>
-			
-			<tr>
-				<td align="center" style="vertical-align:middle">소속부서</td>
-				<td>
-					<select name="department" class="form-control" id="add_select">
-						<option value="0" selected>사법등기심의관실</option>
-						<option value="1">가족관계등록과</option>
-						<option value="2">부동산등기과</option>
-						<option value="3">재외국민가족관계과</option>
-					</select>
-				</td>
-			</tr>
-		
-			<tr>
-				<td align="center" style="vertical-align:middle">사무실 위치</td>
-				<td> <input type="text" class="form-control" name="location" maxlength="20"> </td>
-			</tr>
-		
-			<tr>
-				<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-				<td> <input type="text" class="form-control" name="office_number" maxlength="20"> </td>
-			</tr>
-			
-			<tr>
-				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-				<td> <input type="text" class="form-control" name="phone_number" maxlength="20"> </td>
-			</tr>
-		</table>
+				<tr>
+					<td align="center" style="vertical-align:middle">사무실 전화번호</td>
+					<td> <input type="text" class="form-control" name="office_number" maxlength="20"> </td>
+				</tr>
+				
+				<tr>
+					<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
+					<td> <input type="text" class="form-control" name="phone_number" maxlength="20"> </td>
+				</tr>
+			</table>
+				<input type="text" name="a" value="add" style="display:none">
+		</form>
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_close_btn" onclick="close_add_layout()" style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_apply_btn" style="display:inline-block; width:100px;">추가</button>
         
@@ -241,31 +243,32 @@
     <div class="modal_modify_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_modify_header"><button type=button" class="close" onclick="close_modify_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 수정</h3><br>
+       <form action="/ScourtOrg/sorg" method="post" id="modify_form">
        <table class="table table-bordered">
 			<tr>
 				<td align="center" style="vertical-align:middle">성명</td>
-				<td> <input type="text" class="form-control" name="name" maxlength="10" id=modify_input_name> </td>
+				<td> <input type="text" class="form-control" name="name" maxlength="10"> </td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">생년월일</td>
-				<td> <input type="date" class="form-control" name="birthday" id=modify_input_birthday></td>
+				<td> <input type="date" class="form-control" name="birthday"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">현부서 임용일</td>
-				<td> <input type="date" class="form-control" name="initday" id=modify_input_initday></td>
+				<td> <input type="date" class="form-control" name="initday"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">직위(직급)</td>
-				<td> <input type="text" class="form-control" name="rank" id=modify_input_rank></td>
+				<td> <input type="text" class="form-control" name="rank"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">소속부서</td>
 				<td>
-					<select name="department" class="form-control" id="modify_select">
+					<select name="department" class="form-control">
 						<option value="0" selected>사법등기심의관실</option>
 						<option value="1">가족관계등록과</option>
 						<option value="2">부동산등기과</option>
@@ -276,19 +279,22 @@
 		
 			<tr>
 				<td align="center" style="vertical-align:middle">사무실 위치</td>
-				<td> <input type="text" class="form-control" name="location" maxlength="20" id=modify_input_location></td>
+				<td> <input type="text" class="form-control" name="location" maxlength="20"></td>
 			</tr>
 		
 			<tr>
 				<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-				<td> <input type="text" class="form-control" name="office_number" maxlength="20" id=modify_input_officenum></td>
+				<td> <input type="text" class="form-control" name="office_number" maxlength="20"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-				<td> <input type="text" class="form-control" name="phone_number" maxlength="20" id=modify_input_phonenum></td>
+				<td> <input type="text" class="form-control" name="phone_number" maxlength="20"></td>
 			</tr>
 		</table>
+			<input type="text" name="a" value="modify" style="display:none">
+			<input type="text" name="id" style="display:none">
+		</form>
 		<button type="button" class = "btn btn-default pull-right" id="modal_modify_close_btn" onclick="close_modify_layout()"style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_modify_apply_btn" style="display:inline-block; width:100px;">수정</button>        
         
@@ -347,7 +353,16 @@
 				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
 				<td align="center"> </td>
 			</tr>
+			
+			<tr style="display:none">
+				<td id=view_id_td></td>
+				<form action="/ScourtOrg/sorg" method="post" id="view_form">
+					<input type="text" name="a" style="display:none" value="delete">
+					<input type="text" name="id" id = "view_vo_id" style="display:none">
+				</form>
+			</tr>
 		</table>
+		
 		<button type="button" class = "btn btn-default pull-right" id="modal_view_delete_btn" style="display:inline-block; margin-left:10px; width:100px;">삭제</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_view_modify_btn" style="display:inline-block; width:100px;">수정</button>        
         
@@ -379,7 +394,7 @@
 	document.getElementById("modal_add_apply_btn").onclick = function() {		
 		if (confirm("추가하시겠습니까?") == true){
 			//추가 이벤트 실행
-
+			document.getElementById("add_form").submit();
 			//추가 이벤트 이후 레이아웃 닫기
 			close_add_layout();
 		}		
@@ -389,7 +404,7 @@
 	document.getElementById("modal_modify_apply_btn").onclick = function() {		
 		if (confirm("수정하시겠습니까?") == true){
 			//수정 이벤트 실행
-
+			document.getElementById("modify_form").submit();
 			//수정 이벤트 이후 레이아웃 닫기
 			close_modify_layout();
 		}		
@@ -399,7 +414,7 @@
 	document.getElementById("modal_view_delete_btn").onclick = function() {		
 		if (confirm("삭제하시겠습니까?") == true){
 			//삭제 이벤트 실행
-
+			document.getElementById("view_form").submit();
 			//삭제 이벤트 이후 레이아웃 닫기
 			close_view_layout();
 		}		
@@ -443,7 +458,8 @@
 		table.rows[4].cells[1].innerText="대법원 동관 245호";
 		table.rows[5].cells[1].innerText="사법등기심의관실";
 		table.rows[6].cells[1].innerText="02-3480-7664";
-		table.rows[7].cells[1].innerText="010-2993-7291";		
+		table.rows[7].cells[1].innerText="010-2993-7291";
+		document.getElementById("view_vo_id").value="120";
 	}
 	
 	//검색목록 테이블 클릭 이벤트
