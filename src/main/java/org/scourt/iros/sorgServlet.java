@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 @WebServlet("/sorg")
 public class sorgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(sorgServlet.class);
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("sorgServlet : START");
@@ -41,33 +41,30 @@ public class sorgServlet extends HttpServlet {
 		vo.setDepartment(request.getParameter("department"));
 		vo.setId(request.getParameter("id"));
 		logger.debug("actionName : "+actionName);
+		OfficerDAO dao = new OfficerDAO();
 		
 		if(("home.jsp").equals(actionName)) {
 			RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/home.jsp");
 			rd.forward(request, response);
 		}
 		else if ("add".equals(actionName)) {
-			OfficerDAO dao = new OfficerDAO();
-			dao.insert(vo);
 			logger.debug("sorgServlet : add");
+			dao.insert(vo);
 		}
 		else if ("delete".equals(actionName)) {
-			OfficerDAO dao = new OfficerDAO();
-			dao.delete(vo);
 			logger.debug("sorgServlet : delete");
+			dao.delete(vo);
 		}
-		else if ("update".equals(actionName)) {
-			OfficerDAO dao = new OfficerDAO();
-			dao.update(vo);
+		else if ("modify".equals(actionName)) {
 			logger.debug("sorgServlet : update");
+			dao.update(vo);
 		}
 		else if ("search".equals(actionName)) {
-			OfficerDAO dao = new OfficerDAO();
+			logger.debug("sorgServlet : search");
 			HashMap hash = new HashMap<String, Object>();
 			
 			hash.put("opt", request.getParameter("option"));
 			dao.search(vo, hash);
-			logger.debug("sorgServlet : search");
 		}
 		
 		logger.debug("이름 : "+vo.getName()+", 생일 : "+vo.getBirthday()+", 직급 : "+vo.getRank()+"!!, ID : "+vo.getId());

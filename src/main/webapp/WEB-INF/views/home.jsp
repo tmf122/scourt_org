@@ -50,6 +50,7 @@
 	<button class="btn btn-primary pull-right"type="button" id="modal_view_open_btn" style=" margin-bottom:8px; margin-left:8px" >보기</button>
 	<button class="btn btn-primary pull-right"type="button" id="modal_add_open_btn" style=" margin-bottom:8px; margin-left:8px" >추가</button>
 	<button class="btn btn-primary pull-right"type="button" id="modal_modify_open_btn" style=" margin-bottom:8px">수정</button>
+	<iframe src="#" name="iframe" style="width:1px; height:1px; border:0; visibility:hidden;"> </iframe>
 
 </div>
 		<table class="table table-hover" id=officer_list>
@@ -172,9 +173,9 @@
 	
 <div id="modal_add" class="container" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
     <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
-       <div class="modal_add_header"><button type=button" class="close" onclick="close_add_layout()">×</button></div>
+       <div class="modal_add_header"><button type="button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
-       <form action="/ScourtOrg/sorg" method="post" id="add_form">
+       <form action="/ScourtOrg/sorg" method="post" id="add_form" target="iframe">
 	       <table class="table table-bordered">
 				<tr>
 					<td align="center" style="vertical-align:middle">성명</td>
@@ -241,34 +242,34 @@
 <!-- ---------------------------------------- -->	
 <div id="modal_modify" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
     <div class="modal_modify_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
-       <div class="modal_modify_header"><button type=button" class="close" onclick="close_modify_layout()">×</button></div>
+       <div class="modal_modify_header"><button type="button" class="close" onclick="close_modify_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 수정</h3><br>
-       <form action="/ScourtOrg/sorg" method="post" id="modify_form">
+       <form action="/ScourtOrg/sorg" method="post" id="modify_form" target="iframe">
        <table class="table table-bordered">
 			<tr>
 				<td align="center" style="vertical-align:middle">성명</td>
-				<td> <input type="text" class="form-control" name="name" maxlength="10"> </td>
+				<td> <input type="text" class="form-control" name="name" maxlength="10" id="modify_input_name"> </td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">생년월일</td>
-				<td> <input type="date" class="form-control" name="birthday"></td>
+				<td> <input type="date" class="form-control" name="birthday" id="modify_input_birthday"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">현부서 임용일</td>
-				<td> <input type="date" class="form-control" name="initday"></td>
+				<td> <input type="date" class="form-control" name="initday" id="modify_input_initday"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">직위(직급)</td>
-				<td> <input type="text" class="form-control" name="rank"></td>
+				<td> <input type="text" class="form-control" name="rank" id="modify_input_rank"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">소속부서</td>
 				<td>
-					<select name="department" class="form-control">
+					<select name="department" class="form-control" id=modify_select>
 						<option value="0" selected>사법등기심의관실</option>
 						<option value="1">가족관계등록과</option>
 						<option value="2">부동산등기과</option>
@@ -279,21 +280,21 @@
 		
 			<tr>
 				<td align="center" style="vertical-align:middle">사무실 위치</td>
-				<td> <input type="text" class="form-control" name="location" maxlength="20"></td>
+				<td> <input type="text" class="form-control" name="location" maxlength="20" id="modify_input_location"></td>
 			</tr>
 		
 			<tr>
 				<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-				<td> <input type="text" class="form-control" name="office_number" maxlength="20"></td>
+				<td> <input type="text" class="form-control" name="office_number" maxlength="20" id="modify_input_officenum"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-				<td> <input type="text" class="form-control" name="phone_number" maxlength="20"></td>
+				<td> <input type="text" class="form-control" name="phone_number" maxlength="20" id="modify_input_phonenum"></td>
 			</tr>
 		</table>
 			<input type="text" name="a" value="modify" style="display:none">
-			<input type="text" name="id" style="display:none">
+			<input type="text" name="id" id=modify_vo_id style="display:none">
 		</form>
 		<button type="button" class = "btn btn-default pull-right" id="modal_modify_close_btn" onclick="close_modify_layout()"style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_modify_apply_btn" style="display:inline-block; width:100px;">수정</button>        
@@ -311,7 +312,7 @@
 <!-- ------------------------------------------- -->	
 <div id="modal_view" style="display:none; position:relative; width:100%; height:100%; top:0; left:0; z-index:1;">
     <div class="modal_view_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
-       <div class="modal_view_header"><button type=button" class="close" onclick="close_view_layout()">×</button></div>
+       <div class="modal_view_header"><button type="button" class="close" onclick="close_view_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 보기</h3><br>
        <table class="table table-bordered" id=view_table>
 			<tr>
@@ -356,10 +357,12 @@
 			
 			<tr style="display:none">
 				<td id=view_id_td></td>
-				<form action="/ScourtOrg/sorg" method="post" id="view_form">
-					<input type="text" name="a" style="display:none" value="delete">
-					<input type="text" name="id" id = "view_vo_id" style="display:none">
-				</form>
+				<td>
+					<form action="/ScourtOrg/sorg" method="post" id="view_form" target="iframe" >
+						<input type="text" name="a" style="display:none" value="delete">
+						<input type="text" name="id" id="view_vo_id" style="display:none">
+					</form>
+				</td>
 			</tr>
 		</table>
 		
@@ -383,6 +386,7 @@
 	document.getElementById("modal_modify_open_btn").onclick = function() {
 		document.getElementById("modal_modify").style.display="block";
 		input_modify();
+		document.getElementById("modify_vo_id").value="125";
 		document.getElementById("modify_input_name").focus();
 	}
 	//메인화면에서 보기 버튼 클릭
@@ -423,13 +427,14 @@
 	//상세보기에서 수정버튼 클릭
 	document.getElementById("modal_view_modify_btn").onclick = function() {		
 		close_view_layout();
-		document.getElementById("modal_modify").style.display="block";
-		input_modify(view_table);
+		input_modify();
+		document.getElementById("modal_modify").style.display="block";		
 		document.getElementById("modify_input_name").focus();
 	}
 	
 	//수정 화면에 값 입력
-	function input_modify(view_table){
+	function input_modify(){
+		view_table=document.getElementById("view_table");
 		document.getElementById("modify_input_name").value=view_table.rows[0].cells[1].innerText;
 		document.getElementById("modify_input_birthday").value=view_table.rows[1].cells[1].innerText;
 		document.getElementById("modify_input_initday").value=view_table.rows[2].cells[1].innerText;
@@ -445,6 +450,7 @@
 		document.getElementById('modify_select').value=selected_num;
 		document.getElementById("modify_input_officenum").value=view_table.rows[6].cells[1].innerText;
 		document.getElementById("modify_input_phonenum").value=view_table.rows[7].cells[1].innerText;
+		document.getElementById("modify_vo_id").value=document.getElementById("view_vo_id").value;
 	}
 	
 	//상세보기에 값 입력
@@ -459,7 +465,7 @@
 		table.rows[5].cells[1].innerText="사법등기심의관실";
 		table.rows[6].cells[1].innerText="02-3480-7664";
 		table.rows[7].cells[1].innerText="010-2993-7291";
-		document.getElementById("view_vo_id").value="122";
+		document.getElementById("view_vo_id").value="124";
 	}
 	
 	//검색목록 테이블 클릭 이벤트

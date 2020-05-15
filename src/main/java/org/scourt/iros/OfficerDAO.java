@@ -18,38 +18,45 @@ public class OfficerDAO {
 	
 	
 	private static OfficerDAO instance;
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(OfficerDAO.class);
 	
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
-		
+		logger.debug("DAO getConnecrion : START");
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			String url ="jdbc:mysql://localhost:3306/scourt_db?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 			conn = DriverManager.getConnection(url, "root", "3004");
 			logger.debug("success");
-			System.out.println("연결정보 : "+conn);
+			logger.debug("연결정보 : "+conn);
 		}catch (ClassNotFoundException e) {
 			logger.debug("드라이버 로딩 실패");
 			e.printStackTrace();
 		}
-		
+		logger.debug("DAO getConnecrion : END");
 		return conn;
 	}
 
 	public boolean insert(OfficerVO vo) {
 		logger.debug("DAO insert : START");
+		String sql="";
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
+		if(vo.getId()==null || vo.getId()=="") {
+			logger.debug("삽입 여부 : "+false);
+			logger.debug("DAO insert : END");
+			return false;
+		}
 		
 		try {
 			conn = getConnection();
 			
 			// id name birthday rank office_number phone_number initday department
 			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
-			String sql = "INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE (?, ?, ?, ?, ?, ?, ?);";
+			sql = "INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE (?, ?, ?, ?, ?, ?, ?);";
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -70,19 +77,9 @@ public class OfficerDAO {
 			e.printStackTrace();
 		}
 		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close();
 		}
-		
+		logger.debug("삽입 여부 : "+result);
 		logger.debug("DAO insert : END");
 		return result;
 	}
@@ -92,13 +89,21 @@ public class OfficerDAO {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		String sql="";
+		
+		if(vo.getId()==null || vo.getId()=="") {
+			logger.debug("DAO update : ID is NULL");
+			logger.debug("수정 여부 : "+false);
+			logger.debug("DAO update : END");
+			return false;
+		}
 		
 		try {
 			conn = getConnection();
 			
 			// id name birthday rank office_number phone_number initday department
 			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
-			String sql = "UPDATE scourt_db.officer SET name = ?, birthday = ?, rank = ? office_number = ? phone_number = ? initday = ? department = ?) WHERE id = ?";
+			sql = "UPDATE scourt_db.officer SET name = ?, birthday = ?, rank = ?, office_number = ?, phone_number = ?, initday = ?, department = ? WHERE id = ?";
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
@@ -120,18 +125,9 @@ public class OfficerDAO {
 			e.printStackTrace();
 		}
 		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close();
 		}
+		logger.debug("수정 여부 : "+result);
 		logger.debug("DAO update : END");
 		return result;
 	}
@@ -201,8 +197,6 @@ public class OfficerDAO {
 				break;
 			}
 			
-			
-			
 			int count = pstmt.executeUpdate();
 			logger.debug("DAO search : "+(opt.equals("0")?"이름":(opt.equals("1")?"직급":(opt.equals("2")?"소속":(opt.equals("3")?"전화번호":"??")))));
 			result = (count == 1);
@@ -211,17 +205,7 @@ public class OfficerDAO {
 			e.printStackTrace();
 		}
 		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close();
 		}
 		logger.debug("DAO search : END");
 		return result;
@@ -232,6 +216,13 @@ public class OfficerDAO {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		
+		if(vo.getId()==null || vo.getId()=="") {
+			logger.debug("DAO delete : ID is NULL");
+			logger.debug("삭제 여부 : "+false);
+			logger.debug("DAO delete : END");
+			return false;
+		}
 		
 		try {
 			conn = getConnection();
@@ -252,19 +243,42 @@ public class OfficerDAO {
 			e.printStackTrace();
 		}
 		finally {
-			try {
-				if (conn != null) {
-					conn.close();
-				}
-				if (pstmt != null) {
-					pstmt.close();
-				}
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close();
 		}
+		logger.debug("삭제 여부 : "+result);
 		logger.debug("DAO delete : END");
+		return result;
+	}
+	
+	public boolean select(OfficerVO vo) {
+		logger.debug("DAO select : START");
+		boolean result = false;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = getConnection();
+			
+			// id name birthday rank office_number phone_number initday department
+			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
+			String sql = "select FROM scourt_db.officer WHERE id=?";
+			
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			pstmt.setString(1, vo.getId());
+			
+			int count = pstmt.executeUpdate();
+			
+			result = (count == 1);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close();
+		}
+		logger.debug("조회 여부 : "+result);
+		logger.debug("DAO select : END");
 		return result;
 	}
 	
