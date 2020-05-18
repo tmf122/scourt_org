@@ -44,13 +44,7 @@ public class OfficerDAO {
 		boolean result = false;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
-		if(vo.getId()==null || vo.getId()=="") {
-			logger.debug("삽입 여부 : "+false);
-			logger.debug("DAO insert : END");
-			return false;
-		}
-		
+
 		try {
 			conn = getConnection();
 			
@@ -92,8 +86,7 @@ public class OfficerDAO {
 		String sql="";
 		
 		if(vo.getId()==null || vo.getId()=="") {
-			logger.debug("DAO update : ID is NULL");
-			logger.debug("수정 여부 : "+false);
+			logger.debug("수정 여부 : "+false+"ID is null");
 			logger.debug("DAO update : END");
 			return false;
 		}
