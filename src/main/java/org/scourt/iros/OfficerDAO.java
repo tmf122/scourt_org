@@ -144,8 +144,8 @@ public class OfficerDAO {
 									
 			switch(opt) {
 			case "0": //이름 검색
-				sql += "select ROWNUM AS RNUM, o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d where o.department=d.id";
+				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
+				sql += "from scourt_db.officer as o, scourt_db.department as d";
 				sql += "where o.department=d.id and ";
 				sql += "o.name like ?";
 				
@@ -156,7 +156,7 @@ public class OfficerDAO {
 				break;
 			case "1": //직급 검색
 				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d where o.department=d.id";
+				sql += "from scourt_db.officer as o, scourt_db.department as d";
 				sql += "where o.department=d.id and ";
 				sql += "o.rank like ?";
 				
@@ -166,7 +166,7 @@ public class OfficerDAO {
 				break;
 			case "2": //소속 검색
 				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d where o.department=d.id";
+				sql += "from scourt_db.officer as o, scourt_db.department as d";
 				sql += "where o.department=d.id and ";
 				sql += "d.name like ? or d.id like ?";
 				
@@ -177,7 +177,7 @@ public class OfficerDAO {
 				break;
 			case "3": //전화번호
 				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d where o.department=d.id";
+				sql += "from scourt_db.officer as o, scourt_db.department as d";
 				sql += "where o.department=d.id and ";
 				sql += "o.office_number like ? or o.phone_number like ?;";
 				
