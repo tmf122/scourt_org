@@ -26,19 +26,22 @@
 
 	<div class="container">	
 		<div class="input-group p-4">
-			<div class="input-group-prepend">
-				<select class="btn btn-outline-secondary dropdown-toggle">
-					<option value="0" selected>이름</option> 
-					<option value="1">직급</option> 
-					<option value="2">소속</option>
-					<option value="3">전화번호</option>			
-				</select>
-			</div>
-	
-			<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
-				aria-describedby="button-addon2">
+			<form id=search_form action="/ScourtOrg/sorg" method="get">
+				<div class="input-group-prepend">
+					<select class="btn btn-outline-secondary dropdown-toggle" name="option" id="search_select">
+						<option value="name" selected>이름</option> 
+						<option value="rank">직급</option> 
+						<option value="department">소속</option>
+						<option value="number">전화번호</option>			
+					</select>
+				</div>
+
+			
+				<input type="text" class="form-control" placeholder="검색어를 입력해주세요." aria-describedby="button-addon2" name="keyword">
+				<input type="text" name="page" style="display:none" id=search_page>
+			</form>
 			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button">
+				<button class="btn btn-outline-secondary" type="button" id="search_btn" onclick="searchClick()">
 					<i class="fa fa-search"></i>
 				</button>
 			</div>
@@ -200,6 +203,13 @@
 		document.getElementById("modal_view").style.display="block";
 		input_view();
 	}
+	
+	function searchClick() {
+		document.getElementById('search_page').value="1";
+		document.getElementById("search_form").submit();
+	}
+			
+	
 
 	//검색목록 테이블 클릭 이벤트
 	//document.getElementById("officer_list").onclick= function(){
@@ -212,6 +222,7 @@
 		});
 		alert(tdArr[2]);
 	});
+	
 		
 
 </script>

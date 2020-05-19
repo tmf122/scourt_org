@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.slf4j.Logger;
@@ -125,16 +126,112 @@ public class OfficerDAO {
 		return result;
 	}
 	
-	public boolean search(OfficerVO vo, HashMap<String, Object> listOpt) {
+	public boolean search(String option, String page, String keyword) {
+		logger.debug("DAO search : START");
+		boolean result = false;
+		StringBuffer sql = new StringBuffer();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		int listNum = 10;
+		ArrayList<OfficerVO> offList = new ArrayList<OfficerVO>();
+							
+		try {
+			conn = getConnection();
+			int pageNum = Integer.parseInt(page.toString());
+			int startNum = (pageNum-1)*listNum+1;
+			logger.debug("startNum : "+startNum);
+			//search 공통 쿼리
+			sql.append("SELECT o.name, o.birthday, o.initday, o.rank, d.id, d.location, o.office_number, o.phone_number, o.id "); 
+			sql.append("from scourt_db.officer as o, scourt_db.department as d "); 
+			sql.append("where o.department = d.id and ");			
+			
+			logger.debug(option+" 검색");
+			
+			switch(option) {
+			case "name": //이름 검색
+				sql.append("o.name like ? ");
+				sql.append("limit ?, ?;");				
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setInt(2, startNum-1);
+				pstmt.setInt(3, listNum);
+				
+				break;
+			case "rank": //직급 검색
+				sql.append("o.rank like ? ");
+				sql.append("limit ?, ?;");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setInt(2, startNum-1);
+				pstmt.setInt(3, listNum);
+				break;
+			case "department": //소속 검색
+				sql.append("d.name like ? or d.id like ? ");
+				sql.append("limit ?, ?;");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setInt(3, startNum-1);
+				pstmt.setInt(4, listNum);
+				break;
+			case "number": //전화번호
+				sql.append("o.office_number like ? or o.phone_number like ? ");
+				sql.append("limit ?, ?;");
+				
+				pstmt = conn.prepareStatement(sql.toString());
+				
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setInt(3, startNum-1);
+				pstmt.setInt(4, listNum);
+				break;
+			default : //그외
+				break;
+			}
+			logger.debug("DAO search : "+option);
+			logger.debug("SQL 전문 : "+sql);
+						
+			rs = pstmt.executeQuery();
+			logger.debug(""+rs);
+			while(rs.next()) {
+				//TODO offList에 담아서 리퀘스트 변수에 담아서 jsp페이지에 포워드 https://ppt21.com/qna/97805 참조.
+				OfficerVO rsvo = new OfficerVO();
+				rsvo.setName(rs.getString("o.name"));
+				rsvo.setBirthday(rs.getString("o.birthday"));
+				rsvo.setRank(rs.getString("o.rank"));
+				rsvo.setOfficeNum(rs.getString("o.office_number"));
+				rsvo.setPhoneNum(rs.getString("o.phone_number"));
+				rsvo.setInitDay(rs.getString("o.initday"));
+				rsvo.setDepartment(rs.getString("d.id"));
+				rsvo.setId(rs.getString("o.id"));
+				offList.add(rsvo);
+				logger.debug("조회된 이름 : "+rsvo.getName());
+				logger.debug("조회된 id : "+rsvo.getId());
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			close();
+		}
+		logger.debug("offList 갯수 : "+offList.size());
+		logger.debug("DAO search : END");
+		return result;
+	}
+	
+	/*
+	public boolean search(String option, String page, String keyword) {
 		logger.debug("DAO search : START");
 		boolean result = false;
 		String sql = "";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
-		String opt = (String)listOpt.get("opt");
-		String condition = (String)listOpt.get("condition");
-		int start = (Integer)listOpt.get("start");
 		
 		try {
 			conn = getConnection();
@@ -142,7 +239,7 @@ public class OfficerDAO {
 			// id name birthday rank office_number phone_number initday department
 			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
 									
-			switch(opt) {
+			switch(op) {
 			case "0": //이름 검색
 				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
 				sql += "from scourt_db.officer as o, scourt_db.department as d";
@@ -203,6 +300,7 @@ public class OfficerDAO {
 		logger.debug("DAO search : END");
 		return result;
 	}
+*/	
 	
 	public boolean delete(OfficerVO vo) {
 		logger.debug("DAO delete : START");

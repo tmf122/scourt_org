@@ -21,8 +21,21 @@ public class sorgServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LoggerFactory.getLogger(sorgServlet.class);
 	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.debug("sorgServlet, doGet : START");
+		request.setCharacterEncoding("utf-8");
+		String searchOption = request.getParameter("option");
+		String searchPage = request.getParameter("page");
+		String searchKeyword = request.getParameter("keyword");
+		
+		logger.debug("search option : "+searchOption+", page : "+searchPage+", keyword : "+searchKeyword);
+	
+		new OfficerDAO().search(searchOption, searchPage, searchKeyword);
+		
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		logger.debug("sorgServlet : START");
+		logger.debug("sorgServlet, doPost : START");
 		request.setCharacterEncoding("utf-8");
 		
 		OfficerVO vo = new OfficerVO();
@@ -58,13 +71,6 @@ public class sorgServlet extends HttpServlet {
 		else if ("modify".equals(actionName)) {
 			logger.debug("sorgServlet : update");
 			dao.update(vo);
-		}
-		else if ("search".equals(actionName)) {
-			logger.debug("sorgServlet : search");
-			HashMap hash = new HashMap<String, Object>();
-			
-			hash.put("opt", request.getParameter("option"));
-			dao.search(vo, hash);
 		}
 		
 		logger.debug("이름 : "+vo.getName()+", 생일 : "+vo.getBirthday()+", 직급 : "+vo.getRank()+"!!, ID : "+vo.getId());
