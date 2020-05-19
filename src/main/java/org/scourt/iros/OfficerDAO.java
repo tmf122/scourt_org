@@ -111,7 +111,7 @@ public class OfficerDAO {
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getBirthday());
 			pstmt.setString(3, vo.getRank());
-			pstmt.setString(4, vo.getRank());
+			pstmt.setString(4, vo.getLocation());
 			pstmt.setString(5, vo.getOfficeNum());
 			pstmt.setString(6, vo.getPhoneNum());
 			pstmt.setString(7, vo.getInitDay());

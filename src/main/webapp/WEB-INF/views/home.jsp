@@ -83,6 +83,10 @@
                   <td><%=officer.getDepartment()%></td>
                   <td><%=officer.getLocation()%></td>
                   <td><%=officer.getOfficeNum()%></td>
+                  <td style="display:none"><%=officer.getId()%></td>
+                  <td style="display:none"><%=officer.getBirthday()%></td>
+                  <td style="display:none"><%=officer.getInitDay()%></td>
+                  <td style="display:none"><%=officer.getPhoneNum()%></td>
                   <tr>            
             <%}}%>
          </tbody>
@@ -163,9 +167,19 @@
 		td.each(function(i){
 			tdArr.push(td.eq(i).text());
 		});
-		alert(tdArr[2]);
+		table=document.getElementById("view_table");
+		//0-이름, 1-생일, 2-임용일, 3-직급, 4-위치, 5-부서, 6-사무실, 7-핸드폰
+		table.rows[0].cells[1].innerText=tdArr[2];
+		table.rows[1].cells[1].innerText=tdArr[7];
+		table.rows[2].cells[1].innerText=tdArr[8];
+		table.rows[3].cells[1].innerText=tdArr[1];
+		table.rows[4].cells[1].innerText=tdArr[4];
+		table.rows[5].cells[1].innerText=tdArr[3];
+		table.rows[6].cells[1].innerText=tdArr[5];
+		table.rows[7].cells[1].innerText=tdArr[9];
+		document.getElementById("view_vo_id").value=tdArr[6];
+		document.getElementById("modal_view").style.display="block";
 	});
-	
 		
 
 </script>
