@@ -70,20 +70,22 @@
 				</tr>
 			</thead>
 			<tbody>
-			<%
-				ArrayList<OfficerVO> officers = (ArrayList<OfficerVO>)request.getAttribute("officer");
-				for(OfficerVO officer : officers) {
-				%>
-					<tr>
-					<th scope="row"><%=officer.getId()%></th>
-					<td><%=officer.getRank()%></td>
-					<td><%=officer.getName()%></td>
-					<td><%=officer.getDepartment()%></td>
-					<td><%=officer.getLocation()%></td>
-					<td><%=officer.getOfficeNum()%></td>
-					<tr>				
-				<%}%>
-			</tbody>
+         <%
+            ArrayList<OfficerVO> officers = (ArrayList<OfficerVO>)request.getAttribute("officer");
+            if(officers != null) {
+               for(OfficerVO officer : officers) {
+                  System.out.println("dd --> "+officer.getName());
+               %>
+                  <tr>
+                  <th scope="row"><%=officer.getId()%></th>
+                  <td><%=officer.getRank()%></td>
+                  <td><%=officer.getName()%></td>
+                  <td><%=officer.getDepartment()%></td>
+                  <td><%=officer.getLocation()%></td>
+                  <td><%=officer.getOfficeNum()%></td>
+                  <tr>            
+            <%}}%>
+         </tbody>
 		</table>
 	</div>	
 	<nav aria-label="Page navigation example">

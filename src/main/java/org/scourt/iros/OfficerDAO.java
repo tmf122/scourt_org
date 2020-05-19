@@ -219,6 +219,9 @@ public class OfficerDAO {
 				logger.debug("조회된 이름 : "+rsvo.getName());
 				logger.debug("조회된 id : "+rsvo.getId());
 			}
+			response.setContentType("text/html; charset=EUC-KR");
+			request.setCharacterEncoding("EUC-KR");
+			
 			request.setAttribute("officer", offList);
 			RequestDispatcher rd = request.getRequestDispatcher("/home");
 			rd.include(request, response);

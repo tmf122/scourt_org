@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="org.scourt.iros.OfficerVO"%>
 <html>
@@ -70,7 +70,6 @@
 				</tr>
 			</thead>
 			<tbody>
-			
 			<%
 				ArrayList<OfficerVO> officers = (ArrayList<OfficerVO>)request.getAttribute("officer");
 				for(OfficerVO officer : officers) {
@@ -84,10 +83,7 @@
 					<td><%=officer.getOfficeNum()%></td>
 					<tr>				
 				<%}%>
-			
 			</tbody>
-			
-			
 		</table>
 	</div>	
 	<nav aria-label="Page navigation example">
