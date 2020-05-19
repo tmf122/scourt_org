@@ -54,6 +54,9 @@ public class OfficerVO {
 	}
 	
 	public void setLocation(String plocation) {
+		if(plocation==null) {
+			plocation="";
+		}
 		this.location=plocation;
 	}
 	

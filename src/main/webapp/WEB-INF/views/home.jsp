@@ -138,7 +138,7 @@
 	document.getElementById("modal_modify_open_btn").onclick = function() {
 		document.getElementById("modal_modify").style.display="block";
 		input_modify();
-		document.getElementById("modify_vo_id").value="125";
+		document.getElementById("modify_vo_id").value="130";
 		document.getElementById("modify_input_name").focus();
 	}
 	//메인화면에서 보기 버튼 클릭

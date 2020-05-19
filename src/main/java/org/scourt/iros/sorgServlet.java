@@ -36,7 +36,7 @@ public class sorgServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("sorgServlet, doPost : START");
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("euc-kr");
 		
 		OfficerVO vo = new OfficerVO();
 		
@@ -51,6 +51,7 @@ public class sorgServlet extends HttpServlet {
 		vo.setOfficeNum(request.getParameter("office_number"));
 		vo.setPhoneNum(request.getParameter("phone_number"));
 		vo.setInitDay(request.getParameter("initday"));
+		vo.setLocation(request.getParameter("location"));
 		vo.setDepartment(request.getParameter("department"));
 		vo.setId(request.getParameter("id"));
 		logger.debug("actionName : "+actionName);

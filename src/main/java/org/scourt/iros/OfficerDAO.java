@@ -57,17 +57,18 @@ public class OfficerDAO {
 			
 			// id name birthday rank office_number phone_number initday department
 			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
-			sql = "INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE (?, ?, ?, ?, ?, ?, ?);";
+			sql = "INSERT INTO scourt_db.officer (name, birthday, rank, location, office_number, phone_number, initday, department) VALUE (?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getBirthday());
 			pstmt.setString(3, vo.getRank());
-			pstmt.setString(4, vo.getOfficeNum());
-			pstmt.setString(5, vo.getPhoneNum());
-			pstmt.setString(6, vo.getInitDay());
-			pstmt.setString(7, vo.getDepartment());
+			pstmt.setString(4, vo.getLocation());
+			pstmt.setString(5, vo.getOfficeNum());
+			pstmt.setString(6, vo.getPhoneNum());
+			pstmt.setString(7, vo.getInitDay());
+			pstmt.setString(8, vo.getDepartment());
 			
 			
 			int count = pstmt.executeUpdate();
@@ -103,19 +104,20 @@ public class OfficerDAO {
 			
 			// id name birthday rank office_number phone_number initday department
 			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
-			sql = "UPDATE scourt_db.officer SET name = ?, birthday = ?, rank = ?, office_number = ?, phone_number = ?, initday = ?, department = ? WHERE id = ?";
+			sql = "UPDATE scourt_db.officer SET name = ?, birthday = ?, rank = ?, location = ?, office_number = ?, phone_number = ?, initday = ?, department = ? WHERE id = ?";
 			
 			pstmt = conn.prepareStatement(sql.toString());
 			
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getBirthday());
 			pstmt.setString(3, vo.getRank());
-			pstmt.setString(4, vo.getOfficeNum());
-			pstmt.setString(5, vo.getPhoneNum());
-			pstmt.setString(6, vo.getInitDay());
-			pstmt.setString(7, vo.getDepartment());
+			pstmt.setString(4, vo.getRank());
+			pstmt.setString(5, vo.getOfficeNum());
+			pstmt.setString(6, vo.getPhoneNum());
+			pstmt.setString(7, vo.getInitDay());
+			pstmt.setString(8, vo.getDepartment());
 			
-			pstmt.setString(8, vo.getId());
+			pstmt.setString(9, vo.getId());
 			
 			int count = pstmt.executeUpdate();
 			
@@ -148,7 +150,7 @@ public class OfficerDAO {
 			int startNum = (pageNum-1)*listNum+1;
 			logger.debug("startNum : "+startNum);
 			//search 공통 쿼리
-			sql.append("SELECT o.name, o.birthday, o.initday, o.rank, d.id, d.location, o.office_number, o.phone_number, o.id "); 
+			sql.append("SELECT o.name, o.birthday, o.initday, o.rank, d.name, o.location, o.office_number, o.phone_number, o.id "); 
 			sql.append("from scourt_db.officer as o, scourt_db.department as d "); 
 			sql.append("where o.department = d.id and ");			
 			
@@ -210,11 +212,13 @@ public class OfficerDAO {
 				rsvo.setName(rs.getString("o.name"));
 				rsvo.setBirthday(rs.getString("o.birthday"));
 				rsvo.setRank(rs.getString("o.rank"));
+				rsvo.setLocation(rs.getString("o.location"));
 				rsvo.setOfficeNum(rs.getString("o.office_number"));
 				rsvo.setPhoneNum(rs.getString("o.phone_number"));
 				rsvo.setInitDay(rs.getString("o.initday"));
-				rsvo.setDepartment(rs.getString("d.id"));
+				rsvo.setDepartment(rs.getString("d.name"));
 				rsvo.setId(rs.getString("o.id"));
+				
 				offList.add(rsvo);
 				logger.debug("조회된 이름 : "+rsvo.getName());
 				logger.debug("조회된 id : "+rsvo.getId());
@@ -237,82 +241,6 @@ public class OfficerDAO {
 		return result;
 	}
 	
-	/*
-	public boolean search(String option, String page, String keyword) {
-		logger.debug("DAO search : START");
-		boolean result = false;
-		String sql = "";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			conn = getConnection();
-			
-			// id name birthday rank office_number phone_number initday department
-			// INSERT INTO scourt_db.officer (name, birthday, rank, office_number, phone_number, initday, department) VALUE ('조영래', '1992-10-19', '전산서기보', '02-3480-7664', '', '2020-04-01', '0');
-									
-			switch(op) {
-			case "0": //이름 검색
-				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d";
-				sql += "where o.department=d.id and ";
-				sql += "o.name like ?";
-				
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setString(1, "%"+condition+"%");
-				
-				break;
-			case "1": //직급 검색
-				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d";
-				sql += "where o.department=d.id and ";
-				sql += "o.rank like ?";
-				
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setString(1, "%"+condition+"%");
-				break;
-			case "2": //소속 검색
-				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d";
-				sql += "where o.department=d.id and ";
-				sql += "d.name like ? or d.id like ?";
-				
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setString(1, "%"+condition+"%");
-				pstmt.setString(2, "%"+condition+"%");
-				break;
-			case "3": //전화번호
-				sql += "select o.name, o.birthday, o.initday, o.rank, d.name, d.location, o.office_number, o.phone_number ";
-				sql += "from scourt_db.officer as o, scourt_db.department as d";
-				sql += "where o.department=d.id and ";
-				sql += "o.office_number like ? or o.phone_number like ?;";
-				
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setString(1, "%"+condition+"%");
-				pstmt.setString(2, "%"+condition+"%");
-				break;
-			default : //그외
-				break;
-			}
-			
-			int count = pstmt.executeUpdate();
-			logger.debug("DAO search : "+(opt.equals("0")?"이름":(opt.equals("1")?"직급":(opt.equals("2")?"소속":(opt.equals("3")?"전화번호":"??")))));
-			result = (count == 1);
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		finally {
-			close();
-		}
-		logger.debug("DAO search : END");
-		return result;
-	}
-*/	
 	
 	public boolean delete(OfficerVO vo) {
 		logger.debug("DAO delete : START");
