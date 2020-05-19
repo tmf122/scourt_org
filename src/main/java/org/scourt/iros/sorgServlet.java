@@ -30,7 +30,7 @@ public class sorgServlet extends HttpServlet {
 		
 		logger.debug("search option : "+searchOption+", page : "+searchPage+", keyword : "+searchKeyword);
 	
-		new OfficerDAO().search(searchOption, searchPage, searchKeyword);
+		new OfficerDAO().search(searchOption, searchPage, searchKeyword, request, response);
 		
 	}
 	

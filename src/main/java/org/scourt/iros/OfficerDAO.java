@@ -1,5 +1,6 @@
 package org.scourt.iros;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,7 +132,7 @@ public class OfficerDAO {
 		return result;
 	}
 	
-	public boolean search(String option, String page, String keyword) {
+	public boolean search(String option, String page, String keyword, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		logger.debug("DAO search : START");
 		boolean result = false;
 		StringBuffer sql = new StringBuffer();
@@ -213,6 +219,9 @@ public class OfficerDAO {
 				logger.debug("조회된 이름 : "+rsvo.getName());
 				logger.debug("조회된 id : "+rsvo.getId());
 			}
+			request.setAttribute("officer", offList);
+			RequestDispatcher rd = request.getRequestDispatcher("/home");
+			rd.include(request, response);
 		}
 		catch (SQLException e) {
 			e.printStackTrace();

@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false" pageEncoding="UTF-8" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="org.scourt.iros.OfficerVO"%>
 <html>
 <head>
 	<!-- bootstrap -->
@@ -24,9 +25,12 @@
 	  </div>
 	</header>
 
+
+
+
 	<div class="container">	
-		<div class="input-group p-4">
-			<form id=search_form action="/ScourtOrg/sorg" method="get">
+		<form id=search_form action="/ScourtOrg/sorg" method="get">
+			<div class="input-group p-4">
 				<div class="input-group-prepend">
 					<select class="btn btn-outline-secondary dropdown-toggle" name="option" id="search_select">
 						<option value="name" selected>이름</option> 
@@ -34,28 +38,26 @@
 						<option value="department">소속</option>
 						<option value="number">전화번호</option>			
 					</select>
-				</div>
+			</div>
 
-			
-				<input type="text" class="form-control" placeholder="검색어를 입력해주세요." aria-describedby="button-addon2" name="keyword">
-				<input type="text" name="page" style="display:none" id=search_page>
-			</form>
+			<input type="text" class="form-control" placeholder="검색어를 입력해주세요." aria-describedby="button-addon2" name="keyword">
+			<input type="text" name="page" style="display:none" id=search_page>
+		
 			<div class="input-group-append">
 				<button class="btn btn-outline-secondary" type="button" id="search_btn" onclick="searchClick()">
 					<i class="fa fa-search"></i>
 				</button>
 			</div>
+			</form>
 		</div>
 		
-<div id="content">
-
-<!--  버튼  -->
-	<button class="btn btn-primary pull-right"type="button" id="modal_view_open_btn" style=" margin-bottom:8px; margin-left:8px" >보기</button>
-	<button class="btn btn-primary pull-right"type="button" id="modal_add_open_btn" style=" margin-bottom:8px; margin-left:8px" >추가</button>
-	<button class="btn btn-primary pull-right"type="button" id="modal_modify_open_btn" style=" margin-bottom:8px">수정</button>
-	<iframe src="#" name="iframe" style="width:1px; height:1px; border:0; visibility:hidden;"> </iframe>
-
-</div>
+	<div id="content">
+		<!--  버튼  -->
+		<button class="btn btn-primary pull-right"type="button" id="modal_view_open_btn" style=" margin-bottom:8px; margin-left:8px" >보기</button>
+		<button class="btn btn-primary pull-right"type="button" id="modal_add_open_btn" style=" margin-bottom:8px; margin-left:8px" >추가</button>
+		<button class="btn btn-primary pull-right"type="button" id="modal_modify_open_btn" style=" margin-bottom:8px">수정</button>
+		<iframe src="#" name="iframe" style="width:1px; height:1px; border:0; visibility:hidden;"> </iframe>
+	</div>
 		<table class="table table-hover" id=officer_list>
 			<thead class="thead-light">
 				<tr>
@@ -68,88 +70,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>전산서기보</td>
-					<td>김이슬</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>전산서기보</td>
-					<td>조영래</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>전산서기보</td>
-					<td>임광진</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">4</th>
-					<td>전산서기보</td>
-					<td>김강은</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">5</th>
-					<td>전산서기보</td>
-					<td>이채민</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">6</th>
-					<td>전산사무관</td>
-					<td>오창완</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">7</th>
-					<td>전산사무관</td>
-					<td>이만수</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">8</th>
-					<td>전산주사</td>
-					<td>김병모</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">9</th>
-					<td>전산주사</td>
-					<td>정인성</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
-				<tr>
-					<th scope="row">10</th>
-					<td>전산주사</td>
-					<td>장연정</td>
-					<td>사법등기심의관실</td>
-					<td>동관 247호</td>
-					<td>02-1234-1234</td>
-				</tr>
+			<%
+				ArrayList<OfficerVO> officers = (ArrayList<OfficerVO>)request.getAttribute("officer");
+				for(OfficerVO officer : officers) {
+				%>
+					<tr>
+					<th scope="row"><%=officer.getId()%></th>
+					<td><%=officer.getRank()%></td>
+					<td><%=officer.getName()%></td>
+					<td><%=officer.getDepartment()%></td>
+					<td><%=officer.getLocation()%></td>
+					<td><%=officer.getOfficeNum()%></td>
+					<tr>				
+				<%}%>
+			</tbody>
 		</table>
-</div>
+	</div>	
 	<nav aria-label="Page navigation example">
 		<ul class="pagination pagination-sm justify-content-center">
 	    	<li class="page-item">
@@ -186,6 +122,11 @@
 </div>
 
 <script>
+	$(document).ready(function(){
+		console.log('레디')
+		//searchClick();
+	});
+
 	//메인화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_open_btn").onclick = function() {
 		document.getElementById("modal_add").style.display="block";
