@@ -11,6 +11,7 @@ public class OfficerVO {
 	private String initday;
 	private String department;
 	private String location;
+	private String departmentName;
 	
 	//setter
 	public void setId(String pid) {
@@ -60,6 +61,10 @@ public class OfficerVO {
 		this.location=plocation;
 	}
 	
+	public void setDepartmentName(String pdepartmentName) {
+		this.departmentName = pdepartmentName;
+	}
+	
 	//getter
 	public String getId() {
 		return this.id;
@@ -96,4 +101,10 @@ public class OfficerVO {
 	public String getLocation() {
 		return this.location;
 	}
+	
+	public String getDepartmentName() {
+		return this.departmentName;
+	}
+	
+	
 }

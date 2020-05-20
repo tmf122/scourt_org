@@ -85,7 +85,7 @@
 						<td class="listtd"><c:out value="${result.id}" /></td>
 						<td class="listtd"><c:out value="${result.rank}" /></td>
 						<td class="listtd"><c:out value="${result.name}" /></td>
-						<td class="listtd"><c:out value="${result.department}" /></td>
+						<td class="listtd"><c:out value="${result.departmentName}" /></td>
 						<td class="listtd"><c:out value="${result.location}" /></td>
 						<td class="listtd"><c:out value="${result.officeNum}" /></td>
 					</tr>
@@ -131,11 +131,6 @@
 	</div>
 
 	<script>
-	$(document).ready(function(){
-		console.log('레디')
-		//searchClick();
-	});
-
 	//메인화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_open_btn").onclick = function() {
 		document.getElementById("modal_add").style.display="block";

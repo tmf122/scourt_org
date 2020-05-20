@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -29,6 +28,8 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.debug("====>home");
+//		DepartmentVO department = (DepartmentVO) model.getAttribute("_USER_");
+
 
 		try {
 			List<OfficerVO> list = service.selectAll();

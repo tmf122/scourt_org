@@ -18,9 +18,7 @@
 
 	<!-- 리스트보기 -->
 	<select id="selectOfficer" resultType="OfficerVO">
-    <![CDATA[
-        select * from officer
-    ]]>
+        select o.id, o.name, o.birthday, o.initday, o.rank, d.name as departmentName, o.location, o.office_number, o.phone_number from scourt_db.officer as o, scourt_db.department as d where o.department = d.id
 	</select>
 
 	<!-- 상세보기 -->
