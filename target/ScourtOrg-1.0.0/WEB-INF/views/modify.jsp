@@ -82,6 +82,7 @@
 			document.getElementById("modify_form").submit();
 			//수정 이벤트 이후 레이아웃 닫기
 			close_modify_layout();
+			location.reload();
 		}		
 	}
 	

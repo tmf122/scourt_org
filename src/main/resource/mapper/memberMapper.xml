@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="org.scourt.iros.mapper.MemberMapper">
+
+	<insert id="insertOfficer">
+		insert into `scourt_db`.`officer` (`id`, `name`,
+		`birthday`, `rank`,
+		`location`, `office_number`, `phone_number`,
+		`initday`, `department`)
+		values
+		(#{id},#{name},#{birthday},#{rank},#{location},#{office_number},#{phone_number},#{initday},#{department});
+	</insert>
+
+	<!-- 리스트보기 -->
+	<select id="selectOfficer" resultType="OfficerVO">
+    <![CDATA[
+        select * from officer
+    ]]>
+	</select>
+
+	<!-- 상세보기 -->
+	<select id="detailOfficer" resultType="OfficerVO">
+		select * from officer
+		where id = #{id}
+	</select>
+
+	<!-- 삭제하기 -->
+	<delete id="deleteOfficer">
+		delete from officer where id = #{id}
+	</delete>
+
+	<!-- 수정하기 -->
+	<update id="updateOfficer">
+		update officer set name=#{name},birthday =
+		#{birthday},rank = #{rank},location = #{location},office_number =
+		#{office_number},phone_number = #{phone_number},
+		initday = #{initday},department = #{department}
+		where
+		id = #{id}
+	</update>
+</mapper>
+

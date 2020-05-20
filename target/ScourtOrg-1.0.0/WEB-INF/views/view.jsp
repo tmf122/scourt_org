@@ -87,15 +87,22 @@
 	//수정 화면에 값 입력
 	function input_modify(){
 		view_table=document.getElementById("view_table");
-		document.getElementById("modify_input_name").value="";
-		document.getElementById("modify_input_birthday").value="";
-		document.getElementById("modify_input_initday").value="";
-		document.getElementById("modify_input_rank").value="";
-		document.getElementById("modify_input_location").value="";
-		document.getElementById('modify_select').value="0";
-		document.getElementById("modify_input_officenum").value="";
-		document.getElementById("modify_input_phonenum").value="";
-		document.getElementById("modify_vo_id").value="";
+		document.getElementById("modify_input_name").value=view_table.rows[0].cells[1].innerText;
+		document.getElementById("modify_input_birthday").value=view_table.rows[1].cells[1].innerText;
+		document.getElementById("modify_input_initday").value=view_table.rows[2].cells[1].innerText;
+		document.getElementById("modify_input_rank").value=view_table.rows[3].cells[1].innerText;
+		document.getElementById("modify_input_location").value=view_table.rows[4].cells[1].innerText;
+		var selected_num="0";
+		switch(view_table.rows[5].cells[1].innerText){
+			case "사법등기심의관실": 	selected_num="0"; break; 
+			case "가족관계등록과":		selected_num="1"; break;
+			case "부동산등기과":		selected_num="2"; break;
+			case "재외국민가족관계과":	selected_num="3"; break;		
+		}
+		document.getElementById('modify_select').value=selected_num;
+		document.getElementById("modify_input_officenum").value=view_table.rows[6].cells[1].innerText;
+		document.getElementById("modify_input_phonenum").value=view_table.rows[7].cells[1].innerText;
+		document.getElementById("modify_vo_id").value=document.getElementById("view_vo_id").value;
 	}
 	
 	//직원 상세보기 화면 닫기
@@ -103,20 +110,7 @@
 		document.getElementById("modal_view").style.display="none";
 	}
 	
-	//상세보기에 값 입력
-	function input_view(){
-		table=document.getElementById("view_table");
-				
-		table.rows[0].cells[1].innerText="조영래";
-		table.rows[1].cells[1].innerText="1992-10-19";
-		table.rows[2].cells[1].innerText="2020-04-01";
-		table.rows[3].cells[1].innerText="전산서기보";
-		table.rows[4].cells[1].innerText="대법원 동관 245호";
-		table.rows[5].cells[1].innerText="사법등기심의관실";
-		table.rows[6].cells[1].innerText="02-3480-7664";
-		table.rows[7].cells[1].innerText="010-2993-7291";
-		document.getElementById("view_vo_id").value="124";
-	}
+
 	
 	//상세보기에서 수정버튼 클릭
 	document.getElementById("modal_view_modify_btn").onclick = function() {		
