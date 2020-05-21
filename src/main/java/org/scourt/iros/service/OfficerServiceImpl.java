@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.scourt.iros.HomeController;
 import org.scourt.iros.dao.OfficerDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

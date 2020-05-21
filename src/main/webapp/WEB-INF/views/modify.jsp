@@ -81,7 +81,9 @@
 		}
 		//수정 이벤트 실행
 		document.getElementById("modify_form").submit();
-		location.reload();
+		setTimeout(function(){
+		    window.location.reload();
+		},100);
 		//수정 이벤트 이후 레이아웃 닫기
 		close_modify_layout();		
 	}
