@@ -9,7 +9,7 @@
 <!-- ------------------------------------------- -->
 <!-- -----------직원 보기-------------------------- -->
 <!-- ------------------------------------------- -->	
-    <div class="modal_view_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+    <div class="modal_view_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top: -250px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_view_header"><button type="button" class="close" onclick="close_view_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 보기</h3><br>
        <table class="table table-bordered" id=view_table>

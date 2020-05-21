@@ -9,7 +9,7 @@
 <!-- ---------------------------------------- -->
 <!-- -----------직원 수정 ---------------------- -->
 <!-- ---------------------------------------- -->	
-    <div class="modal_modify_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+    <div class="modal_modify_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top: -320px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_modify_header"><button type="button" class="close" onclick="close_modify_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 수정</h3><br>
        <form action="/ScourtOrg/sorg" method="post" id="modify_form" target="iframe">

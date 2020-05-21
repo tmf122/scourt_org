@@ -11,7 +11,7 @@
 <!-- -----------직원 추가----------------- -->
 <!-- ---------------------------------- -->	
 	
-    <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+    <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top:-320px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_add_header"><button type="button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
        <form action="/ScourtOrg/sorg" method="post" id="add_form" target="iframe">
@@ -77,12 +77,13 @@
 <script>
 	//추가화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_apply_btn").onclick = function() {		
-		if (confirm("추가하시겠습니까?") == true){
-			//추가 이벤트 실행
-			document.getElementById("add_form").submit();
-			//추가 이벤트 이후 레이아웃 닫기
-			close_add_layout();
-		}		
+		if (confirm("추가하시겠습니까?") == false){
+			return;
+		}
+		//추가 이벤트 실행
+		addOfficer();
+		//추가 이벤트 이후 레이아웃 닫기
+		close_add_layout();		
 	}
 		
 	//직원 추가 화면 닫기
@@ -98,6 +99,29 @@
 			el[i].value = '';
 		}
 		document.getElementById('add_select').value='0';
+	}
+	
+	//OfficerVO : id, name, birthday, rank, office_number, phone_number, initday, department, location, departmentName
+	function addOfficer(){
+		var formData = document.getElementById('add_form');
+		$.ajax({
+			cache : false,
+			processData : false,
+			contentType : false,
+			url : "/sorg",
+			type : "POST",
+			dataType : formData,
+			success : function(result){
+				console.log(e);
+			}
+			,
+			
+			error : function(e){
+				console.log(e);
+			}
+			
+		});
+		alrt("!!");
 	}
 	
 </script>

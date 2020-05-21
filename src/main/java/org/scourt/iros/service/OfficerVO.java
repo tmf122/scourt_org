@@ -42,7 +42,7 @@ public class OfficerVO {
 		this.phone_number=pphone;
 	}
 	
-	public void setInitDay(String pinit) {
+	public void setInitday(String pinit) {
 		if(pinit=="") {
 			pinit=null;
 		}
@@ -90,7 +90,7 @@ public class OfficerVO {
 		return this.phone_number;
 	}
 	
-	public String getInitDay() {
+	public String getInitday() {
 		return this.initday;
 	}
 	
@@ -106,5 +106,10 @@ public class OfficerVO {
 		return this.departmentName;
 	}
 	
+	public String toString() {
+		return "id = "+this.id+", "+ "name = "+this.name+", "+"birthday = "+this.birthday+", "+"rank = "+this.rank+", "+"office_number = "
+				+this.office_number+", "+"phone_number = "+this.phone_number+", "+"initday = "+this.initday+", "+"department = "
+				+this.department+", "+"location = "+this.location+", "+"departmentName = "+this.departmentName;
+	}
 	
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.scourt.iros.service.OfficerService;
 import org.scourt.iros.service.OfficerVO;
@@ -11,8 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Handles requests for the application home page.
@@ -33,11 +37,25 @@ public class HomeController {
 
 		try {
 			List<OfficerVO> list = service.selectAll();
-			model.addAttribute("resultList",list);
+			model.addAttribute("resultList", list);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "home";
 	}
+	
+	@RequestMapping(value = "/sorg", method = RequestMethod.POST)
+	public void addOfficer(OfficerVO officer) {
+		logger.debug("===>addOfficer");
+		logger.debug(officer.toString());
+		try {
+			service.insert(officer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return;
+	}
+
 }

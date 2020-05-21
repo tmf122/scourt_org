@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="org.scourt.iros.OfficerVO"%>
+<%@ page import="org.scourt.iros.service.OfficerVO"%>
 <html>
 <head>
 <!-- bootstrap -->
@@ -27,6 +27,10 @@
 			</div>
 		</div>
 	</header>
+
+
+
+
 	<div class="container">
 		<div class="input-group p-4">
 			<div class="input-group-prepend">
@@ -52,7 +56,6 @@
 		</div>
 
 
-		<p>회원가입이 ${result }하셨습니다.</p>
 		<div id="content">
 			<!--  버튼  -->
 			<button class="btn btn-primary pull-right" type="button"
@@ -66,25 +69,30 @@
 				style="width: 1px; height: 1px; border: 0; visibility: hidden;">
 			</iframe>
 		</div>
+	
 		<table class="table table-hover" id=officer_list>
 			<thead class="thead-light">
 				<tr>
-					<th align="center">No.</th>
-					<th align="center" >직위</th>
-					<th align="center" >성명</th>
-					<th align="center" >소속부서</th>
-					<th align="center" >사무실 위치</th>
-					<th align="center" >사무실 전화번호</th>
+					<th scope="col">No.</th>
+					<th scope="col">직위</th>
+					<th scope="col">성명</th>
+					<th scope="col">소속부서</th>
+					<th scope="col">사무실 위치</th>
+					<th scope="col">사무실 전화번호</th>
 				</tr>
 
 				<c:forEach var="result" items="${resultList}" varStatus="status">
 					<tr>
-						<td align="center" class="listtd"><c:out value="${result.id}" /></td>
-						<td align="center" class="listtd"><c:out value="${result.rank}" /></td>
-						<td align="center" class="listtd"><c:out value="${result.name}" /></td>
-						<td align="center" class="listtd"><c:out value="${result.department}" /></td>
-						<td align="center" class="listtd"><c:out value="${result.location}" /></td>
-						<td align="center" class="listtd"><c:out value="${result.officeNum}" /></td>
+						<td class="listtd"><c:out value="${result.id}" /></td>
+						<td class="listtd"><c:out value="${result.rank}" /></td>
+						<td class="listtd"><c:out value="${result.name}" /></td>
+						<td class="listtd"><c:out value="${result.departmentName}" /></td>
+						<td class="listtd"><c:out value="${result.location}" /></td>
+						<td class="listtd"><c:out value="${result.officeNum}" /></td>
+						<td style="display:none"><c:out value="${result.id}" /></td>
+		                <td style="display:none"><c:out value="${result.birthday}" /></td>
+		                <td style="display:none"><c:out value="${result.initday}" /></td>
+		                <td style="display:none"><c:out value="${result.phoneNum}" /></td>
 					</tr>
 				</c:forEach>
 			</thead>
@@ -128,11 +136,6 @@
 	</div>
 
 	<script>
-	$(document).ready(function(){
-		console.log('레디')
-		//searchClick();
-	});
-
 	//메인화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_open_btn").onclick = function() {
 		document.getElementById("modal_add").style.display="block";
@@ -148,7 +151,7 @@
 	//메인화면에서 보기 버튼 클릭
 	document.getElementById("modal_view_open_btn").onclick = function() {
 		document.getElementById("modal_view").style.display="block";
-		input_view();
+		//input_view();
 	}
 	
 	function searchClick() {
@@ -177,6 +180,7 @@
 		table.rows[5].cells[1].innerText=tdArr[3];
 		table.rows[6].cells[1].innerText=tdArr[5];
 		table.rows[7].cells[1].innerText=tdArr[9];
+		//alert(""+tdArr[2]);
 		document.getElementById("view_vo_id").value=tdArr[6];
 		document.getElementById("modal_view").style.display="block";
 	});

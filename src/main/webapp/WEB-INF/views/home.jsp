@@ -13,8 +13,6 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -69,6 +67,7 @@
 				style="width: 1px; height: 1px; border: 0; visibility: hidden;">
 			</iframe>
 		</div>
+	
 		<table class="table table-hover" id=officer_list>
 			<thead class="thead-light">
 				<tr>
@@ -88,6 +87,10 @@
 						<td class="listtd"><c:out value="${result.departmentName}" /></td>
 						<td class="listtd"><c:out value="${result.location}" /></td>
 						<td class="listtd"><c:out value="${result.officeNum}" /></td>
+						<td style="display:none"><c:out value="${result.id}" /></td>
+		                <td style="display:none"><c:out value="${result.birthday}" /></td>
+		                <td style="display:none"><c:out value="${result.initday}" /></td>
+		                <td style="display:none"><c:out value="${result.phoneNum}" /></td>
 					</tr>
 				</c:forEach>
 			</thead>
@@ -146,7 +149,7 @@
 	//메인화면에서 보기 버튼 클릭
 	document.getElementById("modal_view_open_btn").onclick = function() {
 		document.getElementById("modal_view").style.display="block";
-		input_view();
+		//input_view();
 	}
 	
 	function searchClick() {
@@ -175,6 +178,7 @@
 		table.rows[5].cells[1].innerText=tdArr[3];
 		table.rows[6].cells[1].innerText=tdArr[5];
 		table.rows[7].cells[1].innerText=tdArr[9];
+		//alert(""+tdArr[2]);
 		document.getElementById("view_vo_id").value=tdArr[6];
 		document.getElementById("modal_view").style.display="block";
 	});

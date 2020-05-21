@@ -11,9 +11,10 @@
 <!-- -----------직원 추가----------------- -->
 <!-- ---------------------------------- -->	
 	
-    <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px;left:50%; transform:translate(-50%, -100%); padding:20px 10px; background:#fff; border:2px solid #666;">
+    <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top:-320px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_add_header"><button type="button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
+       <%String context = request.getContextPath();%>
        <form action="/ScourtOrg/sorg" method="post" id="add_form" target="iframe">
 	       <table class="table table-bordered">
 				<tr>
@@ -55,15 +56,14 @@
 			
 				<tr>
 					<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-					<td> <input type="text" class="form-control" name="office_number" maxlength="20"> </td>
+					<td> <input type="text" class="form-control" name="officeNum" maxlength="20"> </td>
 				</tr>
 				
 				<tr>
 					<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-					<td> <input type="text" class="form-control" name="phone_number" maxlength="20"> </td>
+					<td> <input type="text" class="form-control" name="phoneNum" maxlength="20"> </td>
 				</tr>
 			</table>
-				<input type="text" name="a" value="add" style="display:none">
 		</form>
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_close_btn" onclick="close_add_layout()" style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_apply_btn" style="display:inline-block; width:100px;">추가</button>
@@ -77,12 +77,14 @@
 <script>
 	//추가화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_apply_btn").onclick = function() {		
-		if (confirm("추가하시겠습니까?") == true){
-			//추가 이벤트 실행
-			document.getElementById("add_form").submit();
-			//추가 이벤트 이후 레이아웃 닫기
-			close_add_layout();
-		}		
+		if (confirm("추가하시겠습니까?") == false){
+			return;
+		}
+		//추가 이벤트 실행
+		document.getElementById("add_form").submit();
+		//추가 이벤트 이후 레이아웃 닫기
+		close_add_layout();
+		location.reload();
 	}
 		
 	//직원 추가 화면 닫기

@@ -8,12 +8,12 @@
 <mapper namespace="org.scourt.iros.mapper.MemberMapper">
 
 	<insert id="insertOfficer">
-		insert into `scourt_db`.`officer` (`id`, `name`,
+		insert into `scourt_db`.`officer` (`name`,
 		`birthday`, `rank`,
 		`location`, `office_number`, `phone_number`,
 		`initday`, `department`)
 		values
-		(#{id},#{name},#{birthday},#{rank},#{location},#{office_number},#{phone_number},#{initday},#{department});
+		(#{name},#{birthday},#{rank},#{location},#{office_number},#{phone_number},#{initday},#{department});
 	</insert>
 
 	<!-- 리스트보기 -->
