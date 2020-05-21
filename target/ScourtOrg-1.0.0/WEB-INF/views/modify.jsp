@@ -12,7 +12,7 @@
     <div class="modal_modify_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top: -320px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_modify_header"><button type="button" class="close" onclick="close_modify_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 수정</h3><br>
-       <form action="/ScourtOrg/sorg" method="post" id="modify_form" target="iframe">
+       <form action="/ScourtOrg/sorgModify" method="post" id="modify_form" target="iframe">
        <table class="table table-bordered">
 			<tr>
 				<td align="center" style="vertical-align:middle">성명</td>
@@ -53,15 +53,14 @@
 		
 			<tr>
 				<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-				<td> <input type="text" class="form-control" name="office_number" maxlength="20" id="modify_input_officenum"></td>
+				<td> <input type="text" class="form-control" name="officeNum" maxlength="20" id="modify_input_officenum"></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-				<td> <input type="text" class="form-control" name="phone_number" maxlength="20" id="modify_input_phonenum"></td>
+				<td> <input type="text" class="form-control" name="phoneNum" maxlength="20" id="modify_input_phonenum"></td>
 			</tr>
 		</table>
-			<input type="text" name="a" value="modify" style="display:none">
 			<input type="text" name="id" id=modify_vo_id style="display:none">
 		</form>
 		<button type="button" class = "btn btn-default pull-right" id="modal_modify_close_btn" onclick="close_modify_layout()"style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
@@ -77,13 +76,16 @@
 <script>
 	//수정화면에서 수정 버튼 클릭
 	document.getElementById("modal_modify_apply_btn").onclick = function() {		
-		if (confirm("수정하시겠습니까?") == true){
-			//수정 이벤트 실행
-			document.getElementById("modify_form").submit();
-			//수정 이벤트 이후 레이아웃 닫기
-			close_modify_layout();
-			location.reload();
-		}		
+		if (confirm("수정하시겠습니까?") == false){
+			return;
+		}
+		//수정 이벤트 실행
+		document.getElementById("modify_form").submit();
+		setTimeout(function(){
+		    window.location.reload();
+		},100);
+		//수정 이벤트 이후 레이아웃 닫기
+		close_modify_layout();		
 	}
 	
 	//직원 수정 화면 닫기

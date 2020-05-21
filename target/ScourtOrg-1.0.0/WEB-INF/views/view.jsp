@@ -56,7 +56,7 @@
 			<tr style="display:none">
 				<td id=view_id_td></td>
 				<td>
-					<form action="/ScourtOrg/sorg" method="post" id="view_form" target="iframe" >
+					<form action="/ScourtOrg/sorgDelete" method="post" id="view_form" target="iframe" >
 						<input type="text" name="a" style="display:none" value="delete">
 						<input type="text" name="id" id="view_vo_id" style="display:none">
 					</form>
@@ -76,12 +76,16 @@
 <script>
 	//상세보기에서 삭제버튼 클릭
 	document.getElementById("modal_view_delete_btn").onclick = function() {		
-		if (confirm("삭제하시겠습니까?") == true){
+		if (confirm("삭제하시겠습니까?") == false){
+			return;
+		}
 			//삭제 이벤트 실행
 			document.getElementById("view_form").submit();
+			setTimeout(function(){
+			    window.location.reload();
+			},100); 
 			//삭제 이벤트 이후 레이아웃 닫기
 			close_view_layout();
-		}		
 	}
 		
 	//수정 화면에 값 입력

@@ -20,13 +20,7 @@
 	<select id="selectOfficer" resultType="OfficerVO">
         select o.id, o.name, o.birthday, o.initday, o.rank, d.name as departmentName, o.location, o.office_number, o.phone_number from scourt_db.officer as o, scourt_db.department as d where o.department = d.id
 	</select>
-
-	<!-- 상세보기 -->
-	<select id="detailOfficer" resultType="OfficerVO">
-		select * from officer
-		where id = #{id}
-	</select>
-
+	
 	<!-- 삭제하기 -->
 	<delete id="deleteOfficer">
 		delete from officer where id = #{id}
@@ -41,5 +35,29 @@
 		where
 		id = #{id}
 	</update>
+	
+	<select id="searchOfficer" parameterType="hashmap" resultType="OfficerVO">
+   			select o.id, o.name, o.birthday, o.initday, o.rank, d.name as departmentName, o.location, o.office_number, o.phone_number 
+   			from scourt_db.officer as o, scourt_db.department as d 
+   			where o.department = d.id 
+			<if test="keyword != null and keyword != ''">
+		        <choose>
+		            <when test="option == 'name'">
+						and	o.name like #{keyword} 
+					</when>
+		            <when test="option == 'rank'">
+						and o.rank like #{keyword}
+					</when>
+					<when test="option == 'department'">
+						and	departmentName like #{keyword}
+					</when>
+					<when test="option == 'number'">
+						and	o.office_number like #{keyword}
+					</when>
+					<otherwise></otherwise>
+				</choose>
+			</if>
+	</select>
+
 </mapper>
 

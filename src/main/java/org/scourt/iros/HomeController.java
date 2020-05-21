@@ -1,9 +1,12 @@
 package org.scourt.iros;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.scourt.iros.service.OfficerService;
 import org.scourt.iros.service.OfficerVO;
 import org.slf4j.Logger;
@@ -13,9 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 
@@ -24,21 +24,58 @@ public class HomeController {
 	@Inject
 	private OfficerService service;
 
+	List<OfficerVO> searchList = null;
+	
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Model model) {
 		logger.debug("====>home");
-//		DepartmentVO department = (DepartmentVO) model.getAttribute("_USER_");
 
+		
+		if(searchList == null) {
+			try {
+				List<OfficerVO> list = service.selectAll();
+				model.addAttribute("resultList", list);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				model.addAttribute("resultList", searchList);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		
+		}		
+		searchList = null;
 
+		return "home";
+	}
+	
+	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(Model model, HttpServletRequest httpServletRequest) {
+		String option = httpServletRequest.getParameter("option");
+		String keyword = httpServletRequest.getParameter("keyword");
+		
+		Map<String, String> param = new HashMap<>();
+		
+		param.put("option",option);
+		param.put("keyword",keyword);
+		
 		try {
-			List<OfficerVO> list = service.selectAll();
-			model.addAttribute("resultList", list);
+			searchList = service.search(param);
+			//model.addAttribute("resultList", searchList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "home";
+	
 	}
+
 	
 	@RequestMapping(value = "/sorgAdd", method = RequestMethod.POST)
 	public void addOfficer(OfficerVO officer) {
@@ -68,7 +105,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/sorgDelete", method = RequestMethod.POST)
 	public void deleteOfficer(int id) {
-		logger.debug("===>modifyOfficer");
+		logger.debug("===>deleteOfficer");
 		logger.debug("officer id : "+id);
 		try {
 			service.delete(id);

@@ -14,7 +14,7 @@
     <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top:-320px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_add_header"><button type="button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
-       <form action="/ScourtOrg/sorg" method="post" id="add_form" target="iframe">
+       <form action="/ScourtOrg/sorgAdd" method="post" id="add_form" target="iframe">
 	       <table class="table table-bordered">
 				<tr>
 					<td align="center" style="vertical-align:middle">성명</td>
@@ -55,15 +55,14 @@
 			
 				<tr>
 					<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-					<td> <input type="text" class="form-control" name="office_number" maxlength="20"> </td>
+					<td> <input type="text" class="form-control" name="officeNum" maxlength="20"> </td>
 				</tr>
 				
 				<tr>
 					<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-					<td> <input type="text" class="form-control" name="phone_number" maxlength="20"> </td>
+					<td> <input type="text" class="form-control" name="phoneNum" maxlength="20"> </td>
 				</tr>
 			</table>
-				<input type="text" name="a" value="add" style="display:none">
 		</form>
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_close_btn" onclick="close_add_layout()" style="display:inline-block; margin-left:10px; width:100px;">취소</button> 
 		<button type="button" class = "btn btn-default pull-right" id="modal_add_apply_btn" style="display:inline-block; width:100px;">추가</button>
@@ -81,9 +80,12 @@
 			return;
 		}
 		//추가 이벤트 실행
-		addOfficer();
+		document.getElementById("add_form").submit();
+		setTimeout(function(){
+		    window.location.reload();
+		},100);
 		//추가 이벤트 이후 레이아웃 닫기
-		close_add_layout();		
+		close_add_layout();
 	}
 		
 	//직원 추가 화면 닫기
@@ -99,29 +101,6 @@
 			el[i].value = '';
 		}
 		document.getElementById('add_select').value='0';
-	}
-	
-	//OfficerVO : id, name, birthday, rank, office_number, phone_number, initday, department, location, departmentName
-	function addOfficer(){
-		var formData = document.getElementById('add_form');
-		$.ajax({
-			cache : false,
-			processData : false,
-			contentType : false,
-			url : "/sorg",
-			type : "POST",
-			dataType : formData,
-			success : function(result){
-				console.log(e);
-			}
-			,
-			
-			error : function(e){
-				console.log(e);
-			}
-			
-		});
-		alrt("!!");
 	}
 	
 </script>

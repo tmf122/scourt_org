@@ -1,6 +1,7 @@
 package org.scourt.iros.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -42,6 +43,11 @@ public class OfficerServiceImpl implements OfficerService {
 		logger.debug("OfficerServiceImpl : update");
 		dao.update(vo);
 		return;
+	}
+
+	@Override
+	public List<OfficerVO> search(Map<String, String> param) throws Exception {
+        return dao.search(param);
 	}
  
 }

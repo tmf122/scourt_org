@@ -26,48 +26,44 @@
 		</div>
 	</header>
 
-
-
-
 	<div class="container">
-		<div class="input-group p-4">
-			<div class="input-group-prepend">
-				<select class="btn btn-outline-secondary dropdown-toggle"
-					name="option" id="search_select">
-					<option value="name" selected>이름</option>
-					<option value="rank">직급</option>
-					<option value="department">소속</option>
-					<option value="number">전화번호</option>
-				</select>
+		<form action="/ScourtOrg/search" id="search_form" target="iframe">
+			<div class="input-group p-4">
+				<div class="input-group-prepend">
+					<select class="btn btn-outline-secondary dropdown-toggle"
+						name="option" id="search_select">
+						<option value="name" selected>이름</option>
+						<option value="rank">직급</option>
+						<option value="department">소속</option>
+						<option value="number">전화번호</option>
+					</select>
+				</div>
+
+
+				<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
+					aria-describedby="button-addon2" name="keyword" id="keyword">
+				<input type="text" name="page" style="display: none" id=search_page>
+
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button"
+						id="search_btn" onclick="searchClick()">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
 			</div>
 
-			<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
-				aria-describedby="button-addon2" name="keyword"> <input
-				type="text" name="page" style="display: none" id=search_page>
-
-			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button"
-					id="search_btn" onclick="searchClick()">
-					<i class="fa fa-search"></i>
-				</button>
-			</div>
-		</div>
+		</form>
 
 
 		<div id="content">
 			<!--  버튼  -->
 			<button class="btn btn-primary pull-right" type="button"
-				id="modal_view_open_btn"
-				style="margin-bottom: 8px; margin-left: 8px">보기</button>
-			<button class="btn btn-primary pull-right" type="button"
 				id="modal_add_open_btn" style="margin-bottom: 8px; margin-left: 8px">추가</button>
-			<button class="btn btn-primary pull-right" type="button"
-				id="modal_modify_open_btn" style="margin-bottom: 8px">수정</button>
 			<iframe src="#" name="iframe"
 				style="width: 1px; height: 1px; border: 0; visibility: hidden;">
 			</iframe>
 		</div>
-	
+
 		<table class="table table-hover" id=officer_list>
 			<thead class="thead-light">
 				<tr>
@@ -79,18 +75,18 @@
 					<th scope="col">사무실 전화번호</th>
 				</tr>
 
-				<c:forEach var="result" items="${resultList}" varStatus="status">
-					<tr>
+				<c:forEach var="result" items="${resultList}">
+					<tr id="resultList">
 						<td class="listtd"><c:out value="${result.id}" /></td>
 						<td class="listtd"><c:out value="${result.rank}" /></td>
 						<td class="listtd"><c:out value="${result.name}" /></td>
 						<td class="listtd"><c:out value="${result.departmentName}" /></td>
 						<td class="listtd"><c:out value="${result.location}" /></td>
 						<td class="listtd"><c:out value="${result.officeNum}" /></td>
-						<td style="display:none"><c:out value="${result.id}" /></td>
-		                <td style="display:none"><c:out value="${result.birthday}" /></td>
-		                <td style="display:none"><c:out value="${result.initday}" /></td>
-		                <td style="display:none"><c:out value="${result.phoneNum}" /></td>
+						<td style="display: none"><c:out value="${result.id}" /></td>
+						<td style="display: none"><c:out value="${result.birthday}" /></td>
+						<td style="display: none"><c:out value="${result.initday}" /></td>
+						<td style="display: none"><c:out value="${result.phoneNum}" /></td>
 					</tr>
 				</c:forEach>
 			</thead>
@@ -134,31 +130,21 @@
 	</div>
 
 	<script>
+	
 	//메인화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_open_btn").onclick = function() {
 		document.getElementById("modal_add").style.display="block";
 		document.getElementById("add_input_name").focus();
 	}
-	//메인화면에서 수정 버튼 클릭
-	document.getElementById("modal_modify_open_btn").onclick = function() {
-		document.getElementById("modal_modify").style.display="block";
-		input_modify();
-		document.getElementById("modify_vo_id").value="130";
-		document.getElementById("modify_input_name").focus();
-	}
-	//메인화면에서 보기 버튼 클릭
-	document.getElementById("modal_view_open_btn").onclick = function() {
-		document.getElementById("modal_view").style.display="block";
-		//input_view();
-	}
-	
+
 	function searchClick() {
-		document.getElementById('search_page').value="1";
+		//document.getElementById('search_page').value="1";
 		document.getElementById("search_form").submit();
+		setTimeout(function(){
+		    window.location.reload();
+		},100)
 	}
 			
-	
-
 	//검색목록 테이블 클릭 이벤트
 	//document.getElementById("officer_list").onclick= function(){
 	$("#officer_list tr").click(function(){

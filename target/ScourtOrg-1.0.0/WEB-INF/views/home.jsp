@@ -13,8 +13,6 @@
 	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
@@ -32,6 +30,7 @@
 
 
 	<div class="container">
+	 <form action="/ScourtOrg/search" method="get" id="search_form" target="iframe">
 		<div class="input-group p-4">
 			<div class="input-group-prepend">
 				<select class="btn btn-outline-secondary dropdown-toggle"
@@ -42,9 +41,10 @@
 					<option value="number">전화번호</option>
 				</select>
 			</div>
+			
 
 			<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
-				aria-describedby="button-addon2" name="keyword"> <input
+				aria-describedby="button-addon2" name="keyword" id="keyword"> <input
 				type="text" name="page" style="display: none" id=search_page>
 
 			<div class="input-group-append">
@@ -54,6 +54,8 @@
 				</button>
 			</div>
 		</div>
+		<input id="option"  name="option" type="hidden">
+		</form>
 
 
 		<div id="content">
@@ -156,11 +158,14 @@
 	
 	function searchClick() {
 		document.getElementById('search_page').value="1";
-		document.getElementById("search_form").submit();
+		
+		var searchForm = document.getElementById("search_form");
+		var option = document.getElementById('search_select').value;
+		var keyword = document.getElementById('keyword').value;
+		
+		searchForm.submit(keyword);
 	}
 			
-	
-
 	//검색목록 테이블 클릭 이벤트
 	//document.getElementById("officer_list").onclick= function(){
 	$("#officer_list tr").click(function(){

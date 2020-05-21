@@ -1,6 +1,7 @@
 package org.scourt.iros.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -35,6 +36,14 @@ public class OfficerDAOImp implements OfficerDAO {
 	@Override
 	public void update(OfficerVO vo) throws Exception {
 		sqlSession.update(namespace + ".updateOfficer", vo);
+	}
+	
+	@Override
+	public List<OfficerVO> search(Map<String, String> param) throws Exception {		
+		System.out.print(param);
+		List<OfficerVO> officerList = sqlSession.selectList(namespace + ".searchOfficer", param);
+		
+		return officerList;
 	}
 
 }
