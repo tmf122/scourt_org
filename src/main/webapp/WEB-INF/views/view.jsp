@@ -81,6 +81,7 @@
 		}
 			//삭제 이벤트 실행
 			document.getElementById("view_form").submit();
+			location.reload();
 			//삭제 이벤트 이후 레이아웃 닫기
 			close_view_layout();
 	}

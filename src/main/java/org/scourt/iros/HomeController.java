@@ -72,7 +72,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/sorgDelete", method = RequestMethod.POST)
-	public void modifyOfficer(int id) {
+	public void deleteOfficer(int id) {
 		logger.debug("===>modifyOfficer");
 		logger.debug("officer id : "+id);
 		try {
