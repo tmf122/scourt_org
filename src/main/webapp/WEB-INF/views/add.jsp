@@ -14,8 +14,7 @@
     <div class="modal_add_content" style="position:fixed; width:30%; min-width:420px; left:50%; margin-left: -15%; top:50%; margin-top:-320px; padding:20px 10px; background:#fff; border:2px solid #666;">
        <div class="modal_add_header"><button type="button" class="close" onclick="close_add_layout()">×</button></div>
        <h3 align="center">사법등기국 조직도::직원 추가</h3><br>
-       <%String context = request.getContextPath();%>
-       <form action="/ScourtOrg/sorg" method="post" id="add_form" target="iframe">
+       <form action="/ScourtOrg/sorgAdd" method="post" id="add_form" target="iframe">
 	       <table class="table table-bordered">
 				<tr>
 					<td align="center" style="vertical-align:middle">성명</td>
@@ -84,7 +83,6 @@
 		document.getElementById("add_form").submit();
 		//추가 이벤트 이후 레이아웃 닫기
 		close_add_layout();
-		location.reload();
 	}
 		
 	//직원 추가 화면 닫기
