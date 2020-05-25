@@ -100,19 +100,21 @@
 		
 			<!-- 이전 페이지 -->
 			<li class="page-item<c:if test="${pageVO.getPrev()==false}"> disabled</c:if>">
-				<a class="page-link" onclick="prevClick()" aria-label="Previous"> 
+				<a class="page-link" href="#" onclick="prevClick()" aria-label="Previous"> 
 					<span aria-hidden="true">&laquo;</span> 
 					<span class="sr-only">Previous</span>
 				</a>
 			</li>
 			<!-- 페이지 동적 출력 -->
 			<c:forEach var="num" begin="${pageVO.getFirstPage()}" end="${pageVO.getLastPage()}">
-				<li class="page-item"><a class="page-link" href="#" onclick="pageClick('${num}')">${num}</a></li>
+				<li class="page-item <c:if test="${pageVO.getCurPage()==num}"> active</c:if>">
+				<a class="page-link" href="#" onclick="pageClick('${num}')">${num}</a>
+				</li>
 			</c:forEach>
 			
 			<!-- 다음 페이지 -->
 			<li class="page-item<c:if test="${pageVO.getNext()==false}"> disabled</c:if>">
-				<a class="page-link" onclick="nextClick()" aria-label="Next"> 
+				<a class="page-link" href="#" onclick="nextClick()" aria-label="Next"> 
 					<span aria-hidden="true">&raquo;</span> 
 					<span class="sr-only">Next</span>
 				</a>
