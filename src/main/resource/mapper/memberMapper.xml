@@ -43,16 +43,40 @@
 			<if test="keyword != null and keyword != ''">
 		        <choose>
 		            <when test="option == 'name'">
-						and	o.name like #{keyword} 
+						and	o.name like CONCAT('%',#{keyword},'%') 
 					</when>
 		            <when test="option == 'rank'">
-						and o.rank like #{keyword}
+						and o.rank like CONCAT('%',#{keyword},'%')
 					</when>
 					<when test="option == 'department'">
-						and	departmentName like #{keyword}
+						and	departmentName like CONCAT('%',#{keyword},'%')
 					</when>
 					<when test="option == 'number'">
-						and	o.office_number like #{keyword}
+						and	o.office_number like CONCAT('%',#{keyword},'%')
+					</when>
+					<otherwise></otherwise>
+				</choose>
+			</if>
+			limit #{firstList}, #{listSize};
+	</select>
+	
+	<select id="searchOfficerCounter" parameterType="hashmap" resultType="int">
+   			select count(*) 
+   			from scourt_db.officer as o, scourt_db.department as d 
+   			where o.department = d.id 
+			<if test="keyword != null and keyword != ''">
+		        <choose>
+		            <when test="option == 'name'">
+						and	o.name like CONCAT('%',#{keyword},'%') 
+					</when>
+		            <when test="option == 'rank'">
+						and o.rank like CONCAT('%',#{keyword},'%')
+					</when>
+					<when test="option == 'department'">
+						and	departmentName like CONCAT('%',#{keyword},'%')
+					</when>
+					<when test="option == 'number'">
+						and	o.office_number like CONCAT('%',#{keyword},'%')
 					</when>
 					<otherwise></otherwise>
 				</choose>

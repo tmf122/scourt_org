@@ -26,52 +26,44 @@
 		</div>
 	</header>
 
-
-
-
 	<div class="container">
-	 <form action="/ScourtOrg/search" method="get" id="search_form" target="iframe">
-		<div class="input-group p-4">
-			<div class="input-group-prepend">
-				<select class="btn btn-outline-secondary dropdown-toggle"
-					name="option" id="search_select">
-					<option value="name" selected>이름</option>
-					<option value="rank">직급</option>
-					<option value="department">소속</option>
-					<option value="number">전화번호</option>
-				</select>
-			</div>
-			
+		<form action="/ScourtOrg/search" id="search_form" target="iframe">
+			<div class="input-group p-4">
+				<div class="input-group-prepend">
+					<select class="btn btn-outline-secondary dropdown-toggle"
+						name="option" id="search_select">
+						<option value="name" selected>이름</option>
+						<option value="rank">직급</option>
+						<option value="department">소속</option>
+						<option value="number">전화번호</option>
+					</select>
+				</div>
 
-			<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
-				aria-describedby="button-addon2" name="keyword" id="keyword"> <input
-				type="text" name="page" style="display: none" id=search_page>
 
-			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button"
-					id="search_btn" onclick="searchClick()">
-					<i class="fa fa-search"></i>
-				</button>
+				<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
+					aria-describedby="button-addon2" name="keyword" id="keyword" onkeypress="if(event.keyCode==13){searchClick()}">
+				<input type="hidden" name="page" style="display: none" id=search_page value=1>
+
+				<div class="input-group-append">
+					<button class="btn btn-outline-secondary" type="button"
+						id="search_btn" onclick="searchClick()">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
 			</div>
-		</div>
-		<input id="option"  name="option" type="hidden">
+
 		</form>
 
 
 		<div id="content">
 			<!--  버튼  -->
 			<button class="btn btn-primary pull-right" type="button"
-				id="modal_view_open_btn"
-				style="margin-bottom: 8px; margin-left: 8px">보기</button>
-			<button class="btn btn-primary pull-right" type="button"
 				id="modal_add_open_btn" style="margin-bottom: 8px; margin-left: 8px">추가</button>
-			<button class="btn btn-primary pull-right" type="button"
-				id="modal_modify_open_btn" style="margin-bottom: 8px">수정</button>
 			<iframe src="#" name="iframe"
 				style="width: 1px; height: 1px; border: 0; visibility: hidden;">
 			</iframe>
 		</div>
-	
+
 		<table class="table table-hover" id=officer_list>
 			<thead class="thead-light">
 				<tr>
@@ -83,18 +75,18 @@
 					<th scope="col">사무실 전화번호</th>
 				</tr>
 
-				<c:forEach var="result" items="${resultList}" varStatus="status">
-					<tr>
+				<c:forEach var="result" items="${resultList}">
+					<tr id="resultList">
 						<td class="listtd"><c:out value="${result.id}" /></td>
 						<td class="listtd"><c:out value="${result.rank}" /></td>
 						<td class="listtd"><c:out value="${result.name}" /></td>
 						<td class="listtd"><c:out value="${result.departmentName}" /></td>
 						<td class="listtd"><c:out value="${result.location}" /></td>
 						<td class="listtd"><c:out value="${result.officeNum}" /></td>
-						<td style="display:none"><c:out value="${result.id}" /></td>
-		                <td style="display:none"><c:out value="${result.birthday}" /></td>
-		                <td style="display:none"><c:out value="${result.initday}" /></td>
-		                <td style="display:none"><c:out value="${result.phoneNum}" /></td>
+						<td style="display: none"><c:out value="${result.id}" /></td>
+						<td style="display: none"><c:out value="${result.birthday}" /></td>
+						<td style="display: none"><c:out value="${result.initday}" /></td>
+						<td style="display: none"><c:out value="${result.phoneNum}" /></td>
 					</tr>
 				</c:forEach>
 			</thead>
@@ -138,32 +130,19 @@
 	</div>
 
 	<script>
+	
 	//메인화면에서 추가 버튼 클릭
 	document.getElementById("modal_add_open_btn").onclick = function() {
 		document.getElementById("modal_add").style.display="block";
 		document.getElementById("add_input_name").focus();
 	}
-	//메인화면에서 수정 버튼 클릭
-	document.getElementById("modal_modify_open_btn").onclick = function() {
-		document.getElementById("modal_modify").style.display="block";
-		input_modify();
-		document.getElementById("modify_vo_id").value="130";
-		document.getElementById("modify_input_name").focus();
-	}
-	//메인화면에서 보기 버튼 클릭
-	document.getElementById("modal_view_open_btn").onclick = function() {
-		document.getElementById("modal_view").style.display="block";
-		//input_view();
-	}
-	
+
 	function searchClick() {
-		document.getElementById('search_page').value="1";
-		
-		var searchForm = document.getElementById("search_form");
-		var option = document.getElementById('search_select').value;
-		var keyword = document.getElementById('keyword').value;
-		
-		searchForm.submit(keyword);
+		//document.getElementById('search_page').value="2";
+		document.getElementById("search_form").submit();
+		setTimeout(function(){
+		    window.location.reload();
+		},100)
 	}
 			
 	//검색목록 테이블 클릭 이벤트
@@ -176,7 +155,7 @@
 			tdArr.push(td.eq(i).text());
 		});
 		table=document.getElementById("view_table");
-		//0-이름, 1-생일, 2-임용일, 3-직급, 4-위치, 5-부서, 6-사무실, 7-핸드폰
+		//table column : 0-이름, 1-생일, 2-임용일, 3-직급, 4-위치, 5-부서, 6-사무실, 7-핸드폰
 		table.rows[0].cells[1].innerText=tdArr[2];
 		table.rows[1].cells[1].innerText=tdArr[7];
 		table.rows[2].cells[1].innerText=tdArr[8];

@@ -46,8 +46,14 @@ public class OfficerServiceImpl implements OfficerService {
 	}
 
 	@Override
-	public List<OfficerVO> search(Map<String, String> param) throws Exception {
+	public List<OfficerVO> search(PageVO param) throws Exception {
         return dao.search(param);
 	}
- 
+	
+ 	@Override
+	public int searchOfficerCounter(PageVO param) throws Exception {
+ 		int result = dao.searchOfficerCounter(param);
+ 		logger.debug("service - searchOfficerCounter : "+result);
+        return result;
+	}
 }

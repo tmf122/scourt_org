@@ -6,11 +6,16 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.scourt.iros.service.OfficerServiceImpl;
 import org.scourt.iros.service.OfficerVO;
+import org.scourt.iros.service.PageVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository 
 public class OfficerDAOImp implements OfficerDAO {
+	private static final Logger logger = LoggerFactory.getLogger(OfficerDAOImp.class);
 
 	@Inject 
 	private SqlSession sqlSession;
@@ -39,11 +44,14 @@ public class OfficerDAOImp implements OfficerDAO {
 	}
 	
 	@Override
-	public List<OfficerVO> search(Map<String, String> param) throws Exception {		
-		System.out.print(param);
+	public List<OfficerVO> search(PageVO param) throws Exception {		
 		List<OfficerVO> officerList = sqlSession.selectList(namespace + ".searchOfficer", param);
 		
 		return officerList;
 	}
-
+	
+	@Override
+	public int searchOfficerCounter(PageVO param) throws Exception {		
+		return sqlSession.selectOne(namespace + ".searchOfficerCounter", param);
+	}
 }
