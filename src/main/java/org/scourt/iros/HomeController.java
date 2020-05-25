@@ -106,6 +106,10 @@ public class HomeController {
 		}
 		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
+		if(searchCounter%pageVO.getPageSize()==0 && pageVO.getCurPage()==pageVO.getMaxPage()) {
+			//마지막 페이지에서 직원 추가 시, 마지막 페이지로 이동.
+			pageVO.setCurPage(String.valueOf(pageVO.getCurPage()+1));
+		}
 		model.addAttribute("totalCount", ++searchCounter);
 		logger.debug("add - searchList is null ? "+(searchList==null));
 		logger.debug("HomeController - add : END");
@@ -140,9 +144,13 @@ public class HomeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", --searchCounter);
+		if(searchCounter%pageVO.getPageSize()==0 && pageVO.getCurPage()==pageVO.getMaxPage()) {
+			//마지막 페이지, 마지막 1요소를 삭제하여 0요소가 될 경우 이전페이지로 이동.
+			pageVO.setCurPage(String.valueOf(pageVO.getCurPage()-1));
+		}
+		model.addAttribute("pageVO",pageVO);
 		logger.debug("delete - searchList is null ? "+(searchList==null));
 		logger.debug("HomeController - delete : END");
 		changed=true;
