@@ -30,6 +30,7 @@ public class HomeController {
 	
 	//검색 SQL문 실행결과 ROW 리스트.
 	List<OfficerVO> searchList = null;
+	boolean changed=false;
 	
 	// 검색 SQL문 실행결과의 총 ROW 수
 	int searchCounter=0;
@@ -37,9 +38,13 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
 		logger.debug("HomeController - Home : START");
+		logger.debug("home - searchList is null ? "+(searchList==null));
 		if (searchList == null) {
 			try {
-				pageVO = new PageVO();
+				logger.debug("home - 첫화면 검색");
+				if(changed==false) {
+					pageVO = new PageVO();
+				}
 				searchList = service.search(pageVO);
 				searchCounter = service.searchOfficerCounter(pageVO);
 				pageVO.setMaxPage(searchCounter);
@@ -55,7 +60,11 @@ public class HomeController {
 		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", searchCounter);
+		
 		searchList = null;
+		changed=false;
+
+		logger.debug("home - searchList is null ? "+(searchList==null));
 		logger.debug("HomeController - Home : END");
 		return "home";
 	}
@@ -81,47 +90,62 @@ public class HomeController {
 		pageVO.setMaxPage(searchCounter);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", searchCounter);
-		
+		logger.debug("search - searchList is null ? "+(searchList==null));
 		logger.debug("HomeController - search : END");
 		return "/ScourtOrg/search";
 	}
 
 	@RequestMapping(value = "/sorgAdd", method = RequestMethod.POST)
-	public void addOfficer(OfficerVO officer) {
-		logger.debug("===>addOfficer");
+	public String addOfficer(Model model, OfficerVO officer) {
+		logger.debug("HomeController - add : START");
 		logger.debug(officer.toString());
 		try {
 			service.insert(officer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return;
+		model.addAttribute("pageVO",pageVO);
+		model.addAttribute("resultList", searchList);
+		model.addAttribute("totalCount", ++searchCounter);
+		logger.debug("add - searchList is null ? "+(searchList==null));
+		logger.debug("HomeController - add : END");
+		changed=true;
+		return "/ScourtOrg/search";
 	}
 
 	@RequestMapping(value = "/sorgModify", method = RequestMethod.POST)
-	public void modifyOfficer(OfficerVO officer) {
-		logger.debug("===>modifyOfficer");
+	public String  modifyOfficer(Model model, OfficerVO officer) {
+		logger.debug("HomeController - modify : START");
 		logger.debug(officer.toString());
 		try {
 			service.update(officer);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return;
+		model.addAttribute("pageVO",pageVO);
+		model.addAttribute("resultList", searchList);
+		model.addAttribute("totalCount", searchCounter);
+		logger.debug("modify - searchList is null ? "+(searchList==null));
+		logger.debug("HomeController - modify : END");
+		changed=true;
+		return "/ScourtOrg/search";
 	}
 
 	@RequestMapping(value = "/sorgDelete", method = RequestMethod.POST)
-	public void deleteOfficer(int id) {
-		logger.debug("===>deleteOfficer");
+	public String deleteOfficer(Model model, int id) {
+		logger.debug("HomeController - delete : START");
 		logger.debug("officer id : " + id);
 		try {
 			service.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return;
+		model.addAttribute("pageVO",pageVO);
+		model.addAttribute("resultList", searchList);
+		model.addAttribute("totalCount", --searchCounter);
+		logger.debug("delete - searchList is null ? "+(searchList==null));
+		logger.debug("HomeController - delete : END");
+		changed=true;
+		return "/ScourtOrg/search";
 	}
 }

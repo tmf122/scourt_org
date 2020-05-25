@@ -18,9 +18,8 @@
 	<header>
 		<div class="navbar navbar-dark bg-dark shadow-sm">
 			<div class="container d-flex justify-content-between">
-				<a href="/ScourtOrg" class="navbar-brand d-flex align-items-center"> <i
-					class="fa fa-address-book"></i> <strong class="col-md-3">사법등기국
-						조직도</strong>
+				<a href="/ScourtOrg" class="navbar-brand d-flex align-items-center"> 
+				<i class="fa fa-address-book"></i> <strong class="col-md-3">사법등기국	조직도</strong>
 				</a>
 			</div>
 		</div>
