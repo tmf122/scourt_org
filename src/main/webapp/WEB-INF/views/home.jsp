@@ -39,7 +39,7 @@
 				</div>
 
 				<input type="text" class="form-control" placeholder="검색어를 입력해주세요."
-					aria-describedby="button-addon2" name="keyword" id="keyword" value="${pageVO.getKeyword()}" onkeypress="if(event.keyCode==13){searchClick()}">
+					aria-describedby="button-addon2" name="keyword" id="keyword" value="${pageVO.getKeyword()}" onkeypress="if(event.keyCode==13){searchClick()}" autocomplete=off>
 				<!-- <input type="hidden" name="page" style="display: none" id=search_page value="${pageVO.curPage}"> -->
 				<input type="hidden" name="page" id=search_page value="${pageVO.getCurPage()}">
 
