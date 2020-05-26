@@ -28,12 +28,12 @@
 
 	<!-- 수정하기 -->
 	<update id="updateOfficer">
-		update officer set name=#{name},birthday =
-		#{birthday},rank = #{rank},location = #{location},office_number =
-		#{office_number},phone_number = #{phone_number},
-		initday = #{initday},department = #{department}
+		update `scourt_db`.`officer` set `name`=#{name},`birthday` =
+		#{birthday},`rank` = #{rank},`location` = #{location},`office_number` =
+		#{office_number},`phone_number` = #{phone_number},
+		`initday` = #{initday},`department` = #{department}
 		where
-		id = #{id}
+		`id` = #{id}
 	</update>
 	
 	<select id="searchOfficer" parameterType="hashmap" resultType="OfficerVO">
