@@ -75,7 +75,7 @@
 				
 				<c:forEach var="result" items="${resultList}" varStatus="status">
 					<tr id="resultList">
-						<td class="listtd"><c:out value="${totalCount - pageVO.getFirstList() - status.index}" /></td>
+						<td class="listtd"><c:out value="${pageVO.getFirstList() + status.count}" /></td>
 						<td class="listtd"><c:out value="${result.rank}" /></td>
 						<td class="listtd"><c:out value="${result.name}" /></td>
 						<td class="listtd"><c:out value="${result.departmentName}" /></td>
@@ -147,13 +147,6 @@
 		document.getElementById("add_input_name").focus();
 	}
 
-	function searchClick() {
-		//document.getElementById('search_page').value="2";
-		document.getElementById("search_form").submit();
-		setTimeout(function(){
-		    window.location.reload();
-		},100);
-	}
 			
 	//검색목록 테이블 클릭 이벤트
 	//document.getElementById("officer_list").onclick= function(){
@@ -179,34 +172,33 @@
 		document.getElementById("modal_view").style.display="block";
 	});
 		
+	function searchClick() {
+		document.getElementById('search_page').value="1";
+		searchSubmit();
+	}
+	
 	function prevClick(){
 		document.getElementById("search_page").value = ${pageVO.getFirstPage()}-1; 
-		
-		document.getElementById("search_form").submit();
-		setTimeout(function(){
-		    window.location.reload();
-		},100);
+		searchSubmit();
 	};
 	
 	function nextClick(){
 		document.getElementById("search_page").value = ${pageVO.getLastPage()}+1; 
-		
-		document.getElementById("search_form").submit();
-		setTimeout(function(){
-		    window.location.reload();
-		},100);
+		searchSubmit();
 		
 	};
 	
 	function pageClick(num){
 		document.getElementById("search_page").value = num; 
-		
+		searchSubmit();
+	}
+
+	function searchSubmit() {
 		document.getElementById("search_form").submit();
 		setTimeout(function(){
 		    window.location.reload();
 		},100);
 	}
-
 </script>
 
 

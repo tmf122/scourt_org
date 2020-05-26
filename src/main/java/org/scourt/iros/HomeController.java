@@ -38,7 +38,8 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
 		logger.debug("HomeController - Home : START");
-		logger.debug("home - searchList is null ? "+(searchList==null));
+		logger.debug("home - searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		logger.debug("home - changed is true ? "+ (changed==false ? "false" : "true"));
 		if (searchList == null) {
 			try {
 				logger.debug("home - 첫화면 검색");
@@ -64,7 +65,7 @@ public class HomeController {
 		searchList = null;
 		changed=false;
 
-		logger.debug("home - searchList is null ? "+(searchList==null));
+		logger.debug("home - searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - Home : END");
 		return "home";
 	}
@@ -90,7 +91,7 @@ public class HomeController {
 		pageVO.setMaxPage(searchCounter);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", searchCounter);
-		logger.debug("search - searchList is null ? "+(searchList==null));
+		logger.debug("search - searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - search : END");
 		return "/ScourtOrg/search";
 	}
@@ -111,7 +112,7 @@ public class HomeController {
 			pageVO.setCurPage(String.valueOf(pageVO.getCurPage()+1));
 		}
 		model.addAttribute("totalCount", ++searchCounter);
-		logger.debug("add - searchList is null ? "+(searchList==null));
+		logger.debug("add - searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - add : END");
 		changed=true;
 		return "/ScourtOrg/search";
@@ -129,7 +130,7 @@ public class HomeController {
 		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", searchCounter);
-		logger.debug("modify - searchList is null ? "+(searchList==null));
+		logger.debug("modify - searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - modify : END");
 		changed=true;
 		return "/ScourtOrg/search";
@@ -151,7 +152,7 @@ public class HomeController {
 			pageVO.setCurPage(String.valueOf(pageVO.getCurPage()-1));
 		}
 		model.addAttribute("pageVO",pageVO);
-		logger.debug("delete - searchList is null ? "+(searchList==null));
+		logger.debug("delete - searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - delete : END");
 		changed=true;
 		return "/ScourtOrg/search";
