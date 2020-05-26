@@ -20,7 +20,7 @@ public class OfficerDAOImp implements OfficerDAO {
 	@Inject 
 	private SqlSession sqlSession;
 	// memberMapper.xml의 namespace값
-	private static final String namespace = "org.scourt.iros.mapper.MemberMapper";
+	private static final String namespace = "org.scourt.iros.mapper.OfficerMapper";
 
 	@Override
 	public List<OfficerVO> selectAll() throws Exception {
