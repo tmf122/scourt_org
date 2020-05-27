@@ -163,8 +163,8 @@
 		table.rows[1].cells[1].innerText=tdArr[7];
 		table.rows[2].cells[1].innerText=tdArr[8];
 		table.rows[3].cells[1].innerText=tdArr[1];
-		table.rows[4].cells[1].innerText=tdArr[4];
-		table.rows[5].cells[1].innerText=tdArr[3];
+		table.rows[4].cells[1].innerText=tdArr[3];
+		table.rows[5].cells[1].innerText=tdArr[4];
 		table.rows[6].cells[1].innerText=tdArr[5];
 		table.rows[7].cells[1].innerText=tdArr[9];
 		//alert(""+tdArr[2]);
