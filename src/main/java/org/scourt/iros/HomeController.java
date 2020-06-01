@@ -38,11 +38,11 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
 		logger.debug("HomeController - Home : START");
-		logger.debug("home - searchList is null ? "+ (searchList==null ? "null" : "not null"));
-		logger.debug("home - changed is true ? "+ (changed==false ? "false" : "true"));
+		logger.warn("HomeController - Home : searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		logger.warn("HomeController - Home : changed is true ? "+ (changed==false ? "false" : "true"));
 		if (searchList == null) {
 			try {
-				logger.debug("home - 첫화면 검색");
+				logger.debug("HomeController - Home : 첫화면 검색");
 				if(changed==false) {
 					pageVO = new PageVO();
 				}
@@ -54,9 +54,9 @@ public class HomeController {
 			}
 		}
 		
-		logger.debug("HomeController - home, GET Parameter - option : " + pageVO.getOption() + ", keyword : " + pageVO.getKeyword()+ ", page : " + pageVO.getCurPage());
-		logger.debug("home - pageVO maxPage : "+pageVO.getMaxPage()+" // firstPage : "+pageVO.getFirstPage()+" // curPage : "+pageVO.getCurPage()+" // lastPage : "+pageVO.getLastPage());
-		logger.debug("prev : "+pageVO.getPrev()+", next : "+pageVO.getNext());
+		logger.debug("HomeController - home, GET Parameter - option : " + pageVO.getOption() + ", keyword : " + pageVO.getKeyword()+ ", curPage : " + pageVO.getCurPage());
+		logger.debug("HomeController - Home : pageVO maxPage : "+pageVO.getMaxPage()+" // firstPage : "+pageVO.getFirstPage()+" // lastPage : "+pageVO.getLastPage());
+		logger.warn("HomeController - Home : prev : "+pageVO.getPrev()+", next : "+pageVO.getNext());
 		
 		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
@@ -65,7 +65,7 @@ public class HomeController {
 		searchList = null;
 		changed=false;
 
-		logger.debug("home - searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		logger.warn("HomeController - Home : searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - Home : END");
 		return "home";
 	}
@@ -80,9 +80,9 @@ public class HomeController {
 		try {
 			searchList = service.search(pageVO);
 			searchCounter = service.searchOfficerCounter(pageVO);
-			logger.debug("HomeController - search, GET Parameter - option : " + pageVO.getOption() + ", keyword : " + pageVO.getKeyword()+ ", page : " + pageVO.getCurPage());
-			logger.debug("search - pageVO maxPage : "+pageVO.getMaxPage()+" // firstPage : "+pageVO.getFirstPage()+" // curPage : "+pageVO.getCurPage()+" // lastPage : "+pageVO.getLastPage());
-			logger.debug("prev : "+pageVO.getPrev()+", next : "+pageVO.getNext());
+			logger.debug("HomeController - search : GET Parameter - option : " + pageVO.getOption() + ", keyword : " + pageVO.getKeyword()+" // curPage : "+pageVO.getCurPage());
+			logger.debug("HomeController - search : pageVO maxPage : "+pageVO.getMaxPage()+" // firstPage : "+pageVO.getFirstPage()+" // lastPage : "+pageVO.getLastPage());
+			logger.debug("HomeController - search : prev : "+pageVO.getPrev()+", next : "+pageVO.getNext());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -91,7 +91,7 @@ public class HomeController {
 		pageVO.setMaxPage(searchCounter);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", searchCounter);
-		logger.debug("search - searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		logger.warn("HomeController - search : searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - search : END");
 		return "/ScourtOrg/search";
 	}
@@ -99,7 +99,7 @@ public class HomeController {
 	@RequestMapping(value = "/sorgAdd", method = RequestMethod.POST)
 	public String addOfficer(Model model, OfficerVO officer) {
 		logger.debug("HomeController - add : START");
-		logger.debug(officer.toString());
+		logger.warn(officer.toString());
 		try {
 			service.insert(officer);
 		} catch (Exception e) {
@@ -107,12 +107,13 @@ public class HomeController {
 		}
 		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
-		if(searchCounter%pageVO.getPageSize()==0 && pageVO.getCurPage()==pageVO.getMaxPage()) {
+		model.addAttribute("totalCount", ++searchCounter);
+		if((searchCounter%pageVO.getPageSize())==1 && searchCounter > pageVO.getListSize()&& pageVO.getCurPage()==pageVO.getMaxPage()) {
 			//마지막 페이지에서 직원 추가 시, 마지막 페이지로 이동.
 			pageVO.setCurPage(String.valueOf(pageVO.getCurPage()+1));
 		}
-		model.addAttribute("totalCount", ++searchCounter);
-		logger.debug("add - searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		
+		logger.warn("HomeController - add : searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - add : END");
 		changed=true;
 		return "/ScourtOrg/search";
@@ -121,7 +122,7 @@ public class HomeController {
 	@RequestMapping(value = "/sorgModify", method = RequestMethod.POST)
 	public String  modifyOfficer(Model model, OfficerVO officer) {
 		logger.debug("HomeController - modify : START");
-		logger.debug(officer.toString());
+		logger.warn(officer.toString());
 		try {
 			service.update(officer);
 		} catch (Exception e) {
@@ -130,7 +131,7 @@ public class HomeController {
 		model.addAttribute("pageVO",pageVO);
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", searchCounter);
-		logger.debug("modify - searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		logger.warn("HomeController - modify : searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - modify : END");
 		changed=true;
 		return "/ScourtOrg/search";
@@ -139,7 +140,7 @@ public class HomeController {
 	@RequestMapping(value = "/sorgDelete", method = RequestMethod.POST)
 	public String deleteOfficer(Model model, int id) {
 		logger.debug("HomeController - delete : START");
-		logger.debug("officer id : " + id);
+		logger.debug("HomeController - delete : officer id - " + id);
 		try {
 			service.delete(id);
 		} catch (Exception e) {
@@ -147,12 +148,12 @@ public class HomeController {
 		}
 		model.addAttribute("resultList", searchList);
 		model.addAttribute("totalCount", --searchCounter);
-		if(searchCounter%pageVO.getPageSize()==0 && pageVO.getCurPage()==pageVO.getMaxPage()) {
+		if(searchCounter%pageVO.getPageSize()==0 && searchCounter+1 > pageVO.getPageSize() && pageVO.getCurPage()==pageVO.getMaxPage()) {
 			//마지막 페이지, 마지막 1요소를 삭제하여 0요소가 될 경우 이전페이지로 이동.
 			pageVO.setCurPage(String.valueOf(pageVO.getCurPage()-1));
 		}
 		model.addAttribute("pageVO",pageVO);
-		logger.debug("delete - searchList is null ? "+ (searchList==null ? "null" : "not null"));
+		logger.warn("HomeController - delete : searchList is null ? "+ (searchList==null ? "null" : "not null"));
 		logger.debug("HomeController - delete : END");
 		changed=true;
 		return "/ScourtOrg/search";
