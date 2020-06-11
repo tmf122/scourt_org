@@ -16,7 +16,7 @@
        <table class="table table-bordered">
 			<tr>
 				<td align="center" style="vertical-align:middle">성명</td>
-				<td> <input type="text" class="form-control" name="name" maxlength="10" id="modify_input_name"> </td>
+				<td> <input type="text" class="form-control" name="name" maxlength="10" id="modify_input_name" autocomplete=off> </td>
 			</tr>
 			
 			<tr>
@@ -53,12 +53,12 @@
 		
 			<tr>
 				<td align="center" style="vertical-align:middle">사무실 전화번호</td>
-				<td> <input type="text" class="form-control" name="officeNum" maxlength="20" id="modify_input_officenum"></td>
+				<td> <input type="text" class="form-control" name="officeNum" maxlength="20" id="modify_input_officenum" autocomplete=off></td>
 			</tr>
 			
 			<tr>
 				<td align="center" style="vertical-align:middle">핸드폰 전화번호</td>
-				<td> <input type="text" class="form-control" name="phoneNum" maxlength="20" id="modify_input_phonenum"></td>
+				<td> <input type="text" class="form-control" name="phoneNum" maxlength="20" id="modify_input_phonenum" autocomplete=off></td>
 			</tr>
 		</table>
 			<input type="text" name="id" id=modify_vo_id style="display:none">

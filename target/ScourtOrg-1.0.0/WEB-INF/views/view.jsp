@@ -95,9 +95,9 @@
 		document.getElementById("modify_input_birthday").value=view_table.rows[1].cells[1].innerText;
 		document.getElementById("modify_input_initday").value=view_table.rows[2].cells[1].innerText;
 		document.getElementById("modify_input_rank").value=view_table.rows[3].cells[1].innerText;
-		document.getElementById("modify_input_location").value=view_table.rows[4].cells[1].innerText;
+		document.getElementById("modify_input_location").value=view_table.rows[5].cells[1].innerText;
 		var selected_num="0";
-		switch(view_table.rows[5].cells[1].innerText){
+		switch(view_table.rows[4].cells[1].innerText){
 			case "사법등기심의관실": 	selected_num="0"; break; 
 			case "가족관계등록과":		selected_num="1"; break;
 			case "부동산등기과":		selected_num="2"; break;
